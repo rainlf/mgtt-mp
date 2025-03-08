@@ -1,0 +1,54 @@
+/* 为整个页面容器设置背景图 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* 设置背景图 */
+    background-image: url('/images/background.jpg');
+    background-size: cover; /* 让背景图覆盖整个容器 */
+    background-position: center; /* 背景图居中显示 */
+    background-repeat: no-repeat; /* 背景图不重复 */
+}
+
+/* 进度条容器样式 */
+.progress-bar {
+    width: 80%;
+    max-width: 400px; /* 限制最大宽度，避免在大屏幕上太宽 */
+    height: 24px; /* 适当增加高度，使进度条更显眼 */
+    background-color: rgba(255, 255, 255, 0.3); /* 半透明白色背景，增加通透感 */
+    border-radius: 12px; /* 增加圆角，使进度条更柔和 */
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影，增强层次感 */
+}
+
+/* 进度条样式 */
+.progress {
+    height: 100%;
+    background-color: #FF6347; /* 采用鲜艳的颜色，如珊瑚红，与背景形成对比 */
+    border-radius: 12px; /* 与进度条容器圆角一致 */
+    transition: width 0.3s; /* 平滑过渡效果 */
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); /* 添加条纹效果，增加动态感 */
+    background-size: 24px 24px; /* 条纹大小 */
+    animation: progress-stripes 1s linear infinite; /* 动画效果，让条纹动起来 */
+}
+
+@keyframes progress-stripes {
+    from {
+        background-position: 24px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+/* 加载提示文字样式 */
+.loading-text {
+    font-size: 18px;
+    color: #fff; /* 白色文字，确保在背景图上清晰可见 */
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); /* 添加文字阴影，增强可读性 */
+    font-weight: bold; /* 加粗文字 */
+    margin-top: 10px;
+}

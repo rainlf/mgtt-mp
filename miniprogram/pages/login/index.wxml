@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<navigation-bar title="登录" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <view class="userinfo">
@@ -10,6 +10,11 @@
         <view class="nickname-wrapper">
           <text class="nickname-label">昵称</text>
           <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+        </view>
+        <view class="nickname-wrapper">
+          <text class="nickname-label">Test</text>
+          <button class="avatar-wrapper" bind:click="test">Test
+          </button>
         </view>
       </block>
       <block wx:elif="{{!hasUserInfo}}">
