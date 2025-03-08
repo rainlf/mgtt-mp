@@ -4,6 +4,7 @@ Page({
     data: {
         progress: 0,
         intervalId: null as number | null,
+        message: '正在检查登录状态...',
     },
     onLoad() {
         // 启动假进度条
@@ -39,7 +40,8 @@ Page({
                         if (data.username != null && data.avatar != null) {
                             console.log('userinfo exist, register to home page')
                             this.setData({
-                                progress: 100
+                                progress: 100,
+                                message: '登录成功',
                             });
                             setTimeout(() => {
                                 wx.navigateTo({
@@ -49,7 +51,8 @@ Page({
                         } else {
                             console.log('userinfo missing, register to login page')
                             this.setData({
-                                progress: 100
+                                progress: 100,
+                                message: '登录成功'
                             });
                             setTimeout(() => {
                                 wx.navigateTo({
@@ -60,11 +63,17 @@ Page({
                     })
                     .catch((err: Error) => {
                         console.error('error:', err);
+                        this.setData({
+                            progress: 100,
+                            message: '服务器异常，管理员正在迷路中...',
+                        });
                     })
                     .finally(() => {
-                        if (this.data.intervalId != null) {
-                            clearInterval(this.data.intervalId);
-                        }
+                        setTimeout(() => {
+                            if (this.data.intervalId != null) {
+                                clearInterval(this.data.intervalId);
+                            }
+                        }, 500);
                     })
             },
         })

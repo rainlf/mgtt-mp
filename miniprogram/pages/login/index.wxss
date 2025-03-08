@@ -1,63 +1,99 @@
 /**index.wxss**/
 page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url('/images/background2.jpg');
+    background-size: cover; /* 让背景图覆盖整个容器 */
+    background-position: center; /* 背景图居中显示 */
+    background-repeat: no-repeat; /* 背景图不重复 */
 }
 
 .scrollarea {
-  flex: 1;
-  overflow-y: hidden;
+    flex: 1;
+    overflow-y: hidden;
 }
 
 .userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
-  width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #aaa;
+    width: 80%;
 }
 
 .userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+    overflow: hidden;
+    width: 128rpx;
+    height: 128rpx;
+    margin: 20rpx;
+    border-radius: 50%;
 }
 
 .usermotto {
-  margin-top: 200px;
+    margin-top: 200px;
 }
 
 .avatar-wrapper {
-  padding: 0;
-  width: 56px !important;
-  border-radius: 8px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+    padding: 0;
+    width: 66px !important;
+    border-radius: 8px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .avatar {
-  display: block;
-  width: 56px;
-  height: 56px;
+    display: block;
+    width: 66px;
+    height: 66px;
 }
 
 .nickname-wrapper {
-  display: flex;
-  width: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-  border-top: .5px solid rgba(0, 0, 0, 0.1);
-  border-bottom: .5px solid rgba(0, 0, 0, 0.1);
-  color: black;
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    border-top: .5px solid rgba(0, 0, 0, 0.1);
+    border-bottom: .5px solid rgba(0, 0, 0, 0.1);
+    color: black;
+    background-color: rgba(255, 255, 255, 0.3); /* 半透明白色背景，增加通透感 */
+}
+
+.userinfo-nickname {
+    width: 135px;
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .nickname-label {
-  width: 105px;
+    width: 105px;
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: #333;
+}
+
+.user-motto-button {
+    /* 继承 .nickname-label 的样式 */
+    width: auto; /* 宽度根据内容自适应 */
+    padding: 8px 16px; /* 添加内边距，让按钮有合适的大小 */
+    border: none; /* 去掉边框 */
+    border-radius: 8px; /* 给按钮添加圆角 */
+    background-color: #e0f7fa; /* 设置按钮背景颜色，可根据实际情况调整 */
+    cursor: pointer; /* 鼠标悬停时显示指针样式 */
+    /* 以下是让按钮文本样式和 .nickname-label 一致 */
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: #333;
+}
+
+.user-motto-button:hover {
+    background-color: #b2ebf2; /* 鼠标悬停时的背景颜色 */
 }
 
 .nickname-input {
-  flex: 1;
+    flex: 1;
 }

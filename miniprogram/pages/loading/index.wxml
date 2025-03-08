@@ -2,5 +2,5 @@
     <view class="progress-bar">
         <view class="progress" style="width: {{progress}}%;"></view>
     </view>
-    <view class="loading-text">正在检查登录状态...</view>
+    <view class="loading-text">{{message}}</view>
 </view>
