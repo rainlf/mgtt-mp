@@ -37,9 +37,7 @@ Page({
                 login(res.code)
                     .then((user: User) => {
                         // 用户信息埋入 wx storage
-                        console.log('user:', user);
                         wx.setStorageSync('user', user);
-                        // 用户信息埋入 wx storage
 
                         if (user.username != null && user.username != '' && user.avatar != null) {
                             console.log('userinfo exist, register to home page')
@@ -49,7 +47,7 @@ Page({
                             });
                             setTimeout(() => {
                                 wx.navigateTo({
-                                    url: '../logs/logs',
+                                    url: '../majiang/index',
                                 })
                             }, 500);
                         } else {

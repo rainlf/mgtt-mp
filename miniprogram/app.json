@@ -2,7 +2,7 @@
   "pages": [
     "pages/loading/index",
     "pages/login/index",
-    "pages/logs/logs"
+    "pages/majiang/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

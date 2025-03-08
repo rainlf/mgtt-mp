@@ -87,8 +87,11 @@ Page({
                 'username': this.data.userInfo.nickName,
             },
             success(res) {
-                console.log('rain', res.data)
-                //do something
+                // 用户信息埋入 wx storage
+                wx.setStorageSync('user', res.data);
+                wx.navigateTo({
+                    url: '../majiang/index'
+                })
             }
         })
     }
