@@ -35,9 +35,13 @@ Page({
                 // 发送 res.code 到后台换取 openId, sessionKey, unionId
 
                 login(res.code)
-                    .then((data: User) => {
-                        console.log('data:', data);
-                        if (data.username != null && data.avatar != null) {
+                    .then((user: User) => {
+                        // 用户信息埋入 wx storage
+                        console.log('user:', user);
+                        wx.setStorageSync('user', user);
+                        // 用户信息埋入 wx storage
+
+                        if (user.username != null && user.username != '' && user.avatar != null) {
                             console.log('userinfo exist, register to home page')
                             this.setData({
                                 progress: 100,

@@ -1,5 +1,4 @@
 <!--index.wxml-->
-<navigation-bar title="登录" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <view class="userinfo">

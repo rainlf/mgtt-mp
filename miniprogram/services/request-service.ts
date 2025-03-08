@@ -11,7 +11,7 @@ interface ApiResponse<T> {
     message?: string; // 错误信息（可选）
 }
 
-const server = 'http://localhost:8080'
+export const server = 'http://localhost:8080'
 
 export const request = <T>(options: RequestOptions): Promise<T> => {
     const fullUrl = options.url.startsWith('http')
