@@ -2,7 +2,7 @@ page {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: url('/images/background2.jpg');
+    background-image: url('/images/background7.png');
     background-size: cover; /* 让背景图覆盖整个容器 */
     background-position: center; /* 背景图居中显示 */
     background-repeat: no-repeat; /* 背景图不重复 */
@@ -12,3 +12,12 @@ page {
     flex: 1;
     overflow-y: hidden;
 }
+
+/* 新增背景样式 */
+.container {
+    padding: 75px 0 0 0;
+}
+
+
+
+

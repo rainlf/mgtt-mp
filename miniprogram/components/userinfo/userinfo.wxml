@@ -1,0 +1,16 @@
+<!-- components/userinfo/userinfo.wxml -->
+<view class="userinfo-container">
+    <image class="avatar" src="{{avatar}}" />
+    <view class="info-right">
+        <text class="username">{{username}}</text>
+        <view class="points-box">
+            <text class="points-label">当前积分：</text>
+            <text class="points">{{points}}</text>
+        </view>
+    </view>
+
+    <!-- 新增设置按钮 -->
+    <view class="settings-btn" catch:tap="onSettingsClick">
+        <image class="gear-icon" src="/images/gears.png" />
+    </view>
+</view>

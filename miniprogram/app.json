@@ -2,7 +2,8 @@
   "pages": [
     "pages/loading/index",
     "pages/login/index",
-    "pages/majiang/index"
+    "pages/majiang/index",
+    "pages/update/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",

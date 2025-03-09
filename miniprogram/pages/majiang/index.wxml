@@ -1,15 +1,11 @@
 <!--index.wxml-->
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    <block>
-      <view>
-        <text>ID:</text>
-        <text>{{user.id}}</text>
-        <text>Username:</text>
-        <text>{{user.username}}</text>
-        <text>Avatar:</text>
-        <image src="{{user.avatar}}" mode="aspectFit" />
-      </view>
-    </block>
+    <!-- userinfo 组件 -->
+    <userinfo style="width: 100%"
+            username="{{user.username}}"
+            points="{{user.points}}"
+            avatar="{{user.avatar}}"
+    />
   </view>
 </scroll-view>

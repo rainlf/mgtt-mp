@@ -1,4 +1,4 @@
-import {login} from "../../services/login-service";
+import {login} from "../../services/user-service";
 
 Page({
     data: {
@@ -40,7 +40,6 @@ Page({
                         wx.setStorageSync('user', user);
 
                         if (user.username != null && user.username != '' && user.avatar != null) {
-                            console.log('userinfo exist, register to home page')
                             this.setData({
                                 progress: 100,
                                 message: '登录成功',
@@ -51,7 +50,6 @@ Page({
                                 })
                             }, 500);
                         } else {
-                            console.log('userinfo missing, register to login page')
                             this.setData({
                                 progress: 100,
                                 message: '登录成功'
@@ -82,7 +80,6 @@ Page({
     },
     onUnload() {
         // 清除进度条的定时器
-        console.log('loading page onUnload...');
         if (this.data.intervalId != null) {
             clearInterval(this.data.intervalId);
         }

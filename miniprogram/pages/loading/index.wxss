@@ -6,7 +6,7 @@
     justify-content: center;
     height: 100vh;
     /* 设置背景图 */
-    background-image: url('/images/background.jpg');
+    background-image: url('/images/background.png');
     background-size: cover; /* 让背景图覆盖整个容器 */
     background-position: center; /* 背景图居中显示 */
     background-repeat: no-repeat; /* 背景图不重复 */

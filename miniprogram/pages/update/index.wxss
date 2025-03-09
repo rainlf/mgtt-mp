@@ -33,6 +33,7 @@ page {
 
 .usermotto {
     margin-top: 200px;
+    display: flex;
 }
 
 .avatar-wrapper {
@@ -90,7 +91,22 @@ page {
     /* 以下是让按钮文本样式和 .nickname-label 一致 */
     font-weight: bold;
     font-family: "Comic Sans MS", cursive, sans-serif;
-    color: #333;
+    color: deepskyblue;
+}
+
+.user-back-button {
+    /* 继承 .nickname-label 的样式 */
+    width: auto; /* 宽度根据内容自适应 */
+    padding: 8px 16px; /* 添加内边距，让按钮有合适的大小 */
+    border: none; /* 去掉边框 */
+    border-radius: 8px; /* 给按钮添加圆角 */
+    background-color: #e0f7fa; /* 设置按钮背景颜色，可根据实际情况调整 */
+    cursor: pointer; /* 鼠标悬停时显示指针样式 */
+    /* 以下是让按钮文本样式和 .nickname-label 一致 */
+    font-weight: bold;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: coral;
+    margin-right: 10px;
 }
 
 .nickname-input {
