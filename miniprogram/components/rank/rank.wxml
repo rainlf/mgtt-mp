@@ -1,0 +1,16 @@
+<scroll-view
+        class="list-container"
+        scroll-y
+        refresher-enabled
+        bindrefresherrefresh="onRefresh"
+        refresher-triggered="{{isRefreshing}}"
+>
+    <!-- 列表内容 -->
+    <view class="list-content">
+        <block wx:for="{{listData}}" wx:key="index">
+            <view class="list-item">
+                <text class="item-title">{{item}}</text>
+            </view>
+        </block>
+    </view>
+</scroll-view>

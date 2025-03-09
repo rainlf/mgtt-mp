@@ -1,0 +1,77 @@
+.list-container {
+    height: calc(100vh - 650rpx); /* 根据userinfo高度调整 */
+    display: flex;
+    align-items: center;
+    padding: 32rpx;
+    background: #fff;
+    border-radius: 16rpx;
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+    margin: 20rpx;
+    width: auto;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.list-content {
+
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 28rpx 32rpx;
+    border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.list-item:active {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+/* 加载动画 */
+.dot-flashing {
+    position: relative;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background-color: #4a90e2;
+    color: #4a90e2;
+    animation: dotFlashing 1s infinite linear;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-flashing::before {
+    left: -15rpx;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background-color: #4a90e2;
+    color: #4a90e2;
+    animation: dotFlashing 1s infinite linear;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: 15rpx;
+    width: 10rpx;
+    height: 10rpx;
+    border-radius: 5rpx;
+    background-color: #4a90e2;
+    color: #4a90e2;
+    animation: dotFlashing 1s infinite linear;
+    animation-delay: 0.5s;
+}
+
+@keyframes dotFlashing {
+    0% { background-color: #4a90e2; }
+    50%, 100% { background-color: rgba(74,144,226,0.2); }
+}

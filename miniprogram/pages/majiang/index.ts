@@ -4,6 +4,7 @@ Page({
     data: {
         user: {} as User,
         isRefreshing: false,
+        rankList: [1,2,3,4]
     },
     onLoad() {
     },
