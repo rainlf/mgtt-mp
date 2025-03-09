@@ -1,5 +1,9 @@
 <!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
+<scroll-view class="scrollarea" scroll-y type="list"
+             refresher-enabled
+             bindrefresherrefresh="onRefresh"
+             refresher-triggered="{{isRefreshing}}"
+>
   <view class="container">
     <!-- userinfo 组件 -->
     <userinfo style="width: 100%"

@@ -8,9 +8,17 @@ export const login = (code: string): Promise<User> => {
     });
 }
 
-export const updateUsername = (userId: number, username: string): Promise<User> => {
+export const updateUsername = (userId: number, username: string): Promise<void> => {
     return request({
         url: `/user/username?userId=${userId}&username=${username}`,
         method: 'POST',
     });
 }
+
+export const getUserInfo = (userId: number): Promise<User> => {
+    return request({
+        url: `/user/info?userId=${userId}`,
+        method: 'GET',
+    });
+}
+

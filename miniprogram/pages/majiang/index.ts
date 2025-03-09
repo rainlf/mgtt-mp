@@ -1,6 +1,9 @@
+import {getUserInfo} from "../../services/user-service";
+
 Page({
     data: {
-        user: {},
+        user: {} as User,
+        isRefreshing: false,
     },
     onLoad() {
     },
@@ -12,5 +15,27 @@ Page({
         if (user) {
             this.setData({user})
         }
+    },
+
+    onRefresh() {
+        if (this.data.isRefreshing) {
+            return;
+        }
+
+        this.setData({
+            isRefreshing: true,
+        });
+
+        this.loadData().finally(() => {
+            this.setData({
+                isRefreshing: false,
+            });
+        });
+    },
+
+    async loadData() {
+        const user = await getUserInfo(this.data.user.id)
+        console.log('loadData', user)
+        this.setData({user});
     }
 })
