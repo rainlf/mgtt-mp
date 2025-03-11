@@ -7,7 +7,6 @@ Component({
     },
     data: {
         isRefreshing: false,
-        isLoading: false
     },
     methods: {
         onRefresh() {

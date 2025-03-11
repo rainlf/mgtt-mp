@@ -12,13 +12,28 @@
                       avatar="{{user.avatar}}"
             />
 
-            <rank class="rank"
-                  listData="{{rankList}}"
-                  bind:load="handleComponentLoad"
-            />
+            <block wx:if="{{showGameLog}}">
+                <majiang-log
+                        listData="{{gameList}}"
+                        bind:load="handleGameListLoad"
+                />
+            </block>
+            <block wx:else>
+                <rank class="rank"
+                      listData="{{rankList}}"
+                      bind:load="handleRankListLoad"
+                />
+            </block>
+
         </view>
         <view class="bottom-container">
-            <button class="history-btn" catch:tap="openGameLog">对局记录</button>
+            <block wx:if="{{showGameLog}}">
+                <button class="history-btn" catch:tap="openUserRank">玩家排名</button>
+            </block>
+            <block wx:else>
+                <button class="history-btn" catch:tap="openGameLog">对局记录</button>
+            </block>
+
             <button class="start-btn" catch:tap="saveGameLog">开始记录</button>
         </view>
     </view>

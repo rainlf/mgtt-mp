@@ -5,6 +5,9 @@ Page({
         user: {} as User,
         isRefreshing: false,
         rankList: [] as User[],
+        // rain
+        gameList: [] as User[],
+        showGameLog: false,
     },
     onLoad() {
     },
@@ -14,17 +17,29 @@ Page({
             this.setData({user})
         }
 
+        this.fetchUserRank()
+        this.fetchGameList()
+    },
+
+    handleRankListLoad() {
+        this.fetchUserRank()
+    },
+    handleGameListLoad() {
+        this.fetchGameList()
+    },
+
+    fetchUserRank() {
         getUserRank().then(rankList => {
             this.setData({rankList})
-            // this.setData({rankList: rankList.slice(0, 2)})
+        })
+    },
+    fetchGameList() {
+        // rain
+        getUserRank().then(rankList => {
+            this.setData({rankList})
         })
     },
 
-    handleComponentLoad() {
-        getUserRank().then(rankList => {
-            this.setData({rankList})
-        })
-    },
 
     onRefresh() {
         if (this.data.isRefreshing) {
@@ -47,12 +62,22 @@ Page({
         this.setData({user});
     },
 
+    openUserRank() {
+        this.setData({
+            showGameLog: false
+        })
+        console.log('rain openUserRank', this.data.showGameLog)
+    },
+
     openGameLog() {
-      console.log('openGameLog');
+        this.setData({
+            showGameLog: true
+        })
+        console.log('rain openGameLog', this.data.showGameLog)
     },
 
     saveGameLog() {
-      console.log('saveGameLog');
+        console.log('saveGameLog');
     }
 
 })

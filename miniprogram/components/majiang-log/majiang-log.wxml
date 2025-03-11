@@ -1,0 +1,66 @@
+<scroll-view
+        class="list-container"
+        scroll-y
+        refresher-enabled
+        bindrefresherrefresh="onRefresh"
+        refresher-triggered="{{isRefreshing}}"
+>
+    <view class="list-content">
+        <block wx:for="{{gameRecords}}" wx:key="index">
+            <view class="record-item">
+                <!-- 对局信息头部 -->
+                <view class="record-header">
+                    <block wx:if="{{item.winType === '一炮双响' || item.winType === '一炮三响'}}">
+                        <text class="win-type2">{{item.winType}}</text>
+                    </block>
+                    <block wx:else>
+                        <text class="win-type">{{item.winType}}</text>
+                    </block>
+                    <text class="game-time">{{item.time}}</text>
+                </view>
+
+                <!-- 赢家区域 -->
+                <view class="winner-section">
+                    <block wx:for="{{item.winners}}" wx:key="userid">
+                        <view class="player-row winner">
+                            <image class="avatar" src="{{item.avatar}}"/>
+                            <view class="player-info">
+                                <text class="nickname">{{item.nickname}}</text>
+                                <view class="tags">
+                                    <block wx:for="{{item.tags}}" wx:key="tag">
+                                        <text class="tag win-tag">{{item}}</text>
+                                    </block>
+                                </view>
+                            </view>
+                            <text class="score-change +{{item.score}}">+{{item.score}}</text>
+                        </view>
+                    </block>
+                </view>
+
+                <!-- 输家区域 -->
+                <view class="loser-section">
+                    <block wx:for="{{item.losers}}" wx:key="userid">
+                        <view class="player-row loser">
+                            <image class="avatar" src="{{item.avatar}}"/>
+                            <view class="player-info">
+                                <text class="nickname">{{item.nickname}}</text>
+                                <view class="tags">
+                                    <block wx:for="{{item.tags}}" wx:key="tag">
+                                        <text class="tag lose-tag">{{item}}</text>
+                                    </block>
+                                </view>
+                            </view>
+                            <text class="score-change2 -{{item.score}}">-{{item.score}}</text>
+                        </view>
+                    </block>
+                </view>
+
+                <!-- 记账信息 -->
+                <view class="bookkeeping-info">
+                    <text>记账玩家：{{item.bookkeeper}}</text>
+                    <text>奖励积分：+{{item.bookkeeperPoint}}</text>
+                </view>
+            </view>
+        </block>
+    </view>
+</scroll-view>
