@@ -22,3 +22,10 @@ export const getUserInfo = (userId: number): Promise<User> => {
     });
 }
 
+export const getUserRank = (): Promise<User[]> => {
+    return request({
+        url: `/user/rank`,
+        method: 'GET',
+    });
+}
+

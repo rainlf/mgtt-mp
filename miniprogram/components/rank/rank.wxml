@@ -5,11 +5,61 @@
         bindrefresherrefresh="onRefresh"
         refresher-triggered="{{isRefreshing}}"
 >
-    <!-- 列表内容 -->
     <view class="list-content">
         <block wx:for="{{listData}}" wx:key="index">
             <view class="list-item">
-                <text class="item-title">{{item}}</text>
+                <!-- 排名徽章 -->
+
+                <view wx:if="{{index === 0}}">
+                    <view class="rank-king-box">
+                    <image class="rank-king" src="/images/king1.png" mode="aspectFill"/>
+                    </view>
+                </view>
+                <view wx:elif="{{index === 1}}">
+                    <view class="rank-king-box">
+                        <image class="rank-king" src="/images/king5.png" mode="aspectFill"/>
+                    </view>
+                </view>
+                <view wx:elif="{{index === 2}}">
+                    <view class="rank-king-box">
+                        <image class="rank-king" src="/images/king4.png" mode="aspectFill"/>
+                    </view>
+                </view>
+                <view wx:elif="{{index === 3}}">
+                    <view class="rank-king-box">
+                        <image class="rank-king" src="/images/ranking-3.png" mode="aspectFill"/>
+                    </view>
+                </view>
+                <view wx:else>
+                    <view class="rank-box">
+                        <text class="rank-text">{{index}}</text>
+                    </view>
+                </view>
+
+
+                <!-- 昵称和标签区 -->
+                <view class="info-box">
+                    <view class="user-info-box">
+                        <image class="avatar" src="{{item.avatar}}" mode="aspectFill"/>
+                        <text class="nickname">{{item.username}}</text>
+                    </view>
+                    <view class="tags-box">
+                        <block wx:for="{{item.lastTags}}" wx:key="index">
+                            <text class="tag">{{item}}</text>
+                        </block>
+                    </view>
+                </view>
+
+                <!-- 得分展示 -->
+                <view class="score-box">
+                    <block wx:if="{{item.points >= 0}}">
+                        <text class="score-text">{{item.points}}</text>
+                    </block>
+                    <block wx:else>
+                        <text class="score-text2">{{item.points}}</text>
+                    </block>
+                    <text class="score-label">积分</text>
+                </view>
             </view>
         </block>
     </view>

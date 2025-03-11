@@ -1,21 +1,23 @@
-import {getUserInfo} from "../../services/user-service";
+import {getUserInfo, getUserRank} from "../../services/user-service";
 
 Page({
     data: {
         user: {} as User,
         isRefreshing: false,
-        rankList: [1,2,3,4]
+        rankList: [] as User[],
     },
     onLoad() {
     },
     onShow(): void | Promise<void> {
-        this.syncUserInfo()
-    },
-    syncUserInfo() {
         const user: User = wx.getStorageSync('user')
         if (user) {
             this.setData({user})
         }
+
+        getUserRank().then(rankList => {
+            this.setData({rankList})
+            // this.setData({rankList: rankList.slice(0, 2)})
+        })
     },
 
     onRefresh() {

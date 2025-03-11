@@ -3,7 +3,7 @@ Component({
         listData: {
             type: Array,
             value: []
-        }
+        },
     },
     data: {
         isRefreshing: false,
