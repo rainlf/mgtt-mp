@@ -26,9 +26,17 @@ Component({
             });
         },
         async loadData() {
-            // const user = await getUserInfo(this.data.user.id)
-            // console.log('loadData', user)
-            // this.setData({user});
+            try {
+                // 触发父页面方法（带参数）
+                this.triggerEvent('load', {
+                    from: 'component'
+                }, {
+                    bubbles: true,  // 是否冒泡
+                    composed: true  // 是否跨越组件边界
+                })
+            } catch (e) {
+                console.error(e)
+            }
         }
     }
 })

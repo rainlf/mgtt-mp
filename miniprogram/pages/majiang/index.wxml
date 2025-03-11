@@ -12,7 +12,10 @@
                       avatar="{{user.avatar}}"
             />
 
-            <rank class="rank" listData="{{rankList}}"/>
+            <rank class="rank"
+                  listData="{{rankList}}"
+                  bind:load="handleComponentLoad"
+            />
         </view>
         <view class="bottom-container">
             <button class="history-btn">对局记录</button>

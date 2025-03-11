@@ -20,6 +20,12 @@ Page({
         })
     },
 
+    handleComponentLoad() {
+        getUserRank().then(rankList => {
+            this.setData({rankList})
+        })
+    },
+
     onRefresh() {
         if (this.data.isRefreshing) {
             return;
