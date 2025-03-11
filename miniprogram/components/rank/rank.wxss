@@ -1,12 +1,12 @@
 .list-container {
-    height: calc(100vh - 650rpx); /* 根据userinfo高度调整 */
+    height: calc(100vh - 600rpx); /* 根据userinfo高度调整 */
     display: flex;
     align-items: center;
     padding: 5rpx;
     background: #fff;
     border-radius: 16rpx;
     box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-    margin: 10rpx;
+    margin: 10rpx 20rpx 20rpx 20rpx;
     width: auto;
 }
 

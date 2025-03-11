@@ -44,7 +44,15 @@ Page({
 
     async loadData() {
         const user = await getUserInfo(this.data.user.id)
-        console.log('loadData', user)
         this.setData({user});
+    },
+
+    openGameLog() {
+      console.log('openGameLog');
+    },
+
+    saveGameLog() {
+      console.log('saveGameLog');
     }
+
 })

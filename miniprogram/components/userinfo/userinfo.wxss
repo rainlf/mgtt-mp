@@ -6,7 +6,7 @@
     background: #fff;
     border-radius: 16rpx;
     box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-    margin: 20rpx;
+    margin: 20rpx 20rpx 10rpx 20rpx;
 }
 
 .avatar {

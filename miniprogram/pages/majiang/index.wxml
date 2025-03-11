@@ -18,8 +18,8 @@
             />
         </view>
         <view class="bottom-container">
-            <button class="history-btn">对局记录</button>
-            <button class="start-btn">开始记录</button>
+            <button class="history-btn" catch:tap="openGameLog">对局记录</button>
+            <button class="start-btn" catch:tap="saveGameLog">开始记录</button>
         </view>
     </view>
 </scroll-view>
