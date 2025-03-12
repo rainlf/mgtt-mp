@@ -5,8 +5,25 @@
 
     <!-- 抽屉主体 -->
     <view class="drawer-content">
-        <!-- 内容区域 -->
-        <view class="content">
+        <!-- 新增胡牌类型选择 -->
+        <view class="win-type-selector">
+            <text class="selector-label">胡牌：</text>
+            <view class="type-buttons">
+                <view
+                        class="type-btn {{winType === '平胡' ? 'active' : ''}}"
+                        bindtap="selectWinType"
+                        data-type="平胡"
+                >
+                    平胡
+                </view>
+                <view
+                        class="type-btn {{winType === '自摸' ? 'active' : ''}}"
+                        bindtap="selectWinType"
+                        data-type="自摸"
+                >
+                    自摸
+                </view>
+            </view>
         </view>
 
          操作按钮
