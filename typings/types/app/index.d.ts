@@ -6,6 +6,7 @@ interface User {
     lastTags: string[];
     createdTime: string;
     updatedTime: string;
+    selected: boolean;
 }
 
 interface MajiangLog {
@@ -26,4 +27,9 @@ interface MajiangLogItem {
     user: User;
     points: number;
     tags: string[];
+}
+
+interface MajiangPlayers {
+    currentPlayers: User[];
+    allPlayers: User[];
 }

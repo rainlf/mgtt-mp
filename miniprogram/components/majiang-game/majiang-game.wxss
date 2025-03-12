@@ -7,6 +7,7 @@
     height: 100%;
     z-index: 999;
 }
+
 .drawer-container2 {
     position: fixed;
     top: 0;
@@ -19,10 +20,8 @@
     box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
-
-
 .mask {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -35,16 +34,26 @@
     height: 90vh;
     background: #fff;
     border-radius: 24rpx 24rpx 0 0;
-    box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.1);
+    box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
 }
 
-/* 底部按钮 */
-.action-buttons {
+.drawer-content-top {
     display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.drawer-content-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
     gap: 32rpx;
     margin: 48rpx 0;
     width: 100%;
@@ -72,7 +81,7 @@
 
 /* 新增样式 */
 .win-type-selector {
-    padding: 32rpx;
+    padding: 22rpx;
     width: 100%;
     display: flex;
     align-items: center;
@@ -105,7 +114,7 @@
 .type-btn.active {
     background: #2196F3;
     color: white;
-    box-shadow: 0 4rpx 12rpx rgba(33,150,243,0.3);
+    box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
 }
 
 /* 保持原有按钮交互 */
@@ -113,4 +122,152 @@
 .type-btn:active {
     opacity: 0.8;
     transform: scale(0.98);
+}
+
+/* 新增样式 */
+/* 第一部分样式 */
+.section-header {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0 32rpx;
+    margin: 20rpx 0;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 25rpx;
+    color: #333;
+    font-weight: 500;
+    margin-left: 20rpx;
+}
+
+.replace-btn {
+    font-size: 25rpx;
+    color: #2196F3;
+    padding: 8rpx 16rpx;
+    border-radius: 8rpx;
+    margin-left: 10rpx;
+}
+
+.replace-btn:active {
+    background: #e3f2fd;
+}
+
+/* 第二部分：玩家列表 */
+.players-grid {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: flex-start; /* 顶部对齐防止顶部留白 */
+    padding: 20rpx 0;
+    gap: 20rpx; /* 替代justify-content: space-between */
+}
+
+.player-card {
+    text-align: center;
+    padding: 20rpx;
+    border-radius: 16rpx;
+    background: #f8f9fa;
+    transition: all 0.2s;
+    margin: 5rpx;
+}
+
+.all-players-grid {
+    /*width: 100%;*/
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20rpx 0;
+    /*align-content: flex-start;*/
+}
+
+.all-player-card {
+    text-align: center;
+    padding: 20rpx;
+    border-radius: 16rpx;
+    background: #f8f9fa;
+    transition: all 0.2s;
+    margin: 5rpx;
+}
+
+.all-player-card.active {
+    background: #e3f2fd;
+    color: white;
+    box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
+}
+
+.player-card.active {
+    background: #e3f2fd;
+    box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.15);
+}
+
+.player-avatar {
+    width: 96rpx;
+    height: 96rpx;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 12rpx;
+}
+
+.player-name {
+    font-size: 26rpx;
+    color: #666;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 第三部分：详情框 */
+.detail-box {
+    position: relative;
+    margin: 40rpx 32rpx;
+    padding: 32rpx;
+    background: #fff;
+    border-radius: 16rpx;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.arrow {
+    position: absolute;
+    top: -16rpx;
+    left: 50%;
+    width: 24rpx;
+    height: 24rpx;
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+    box-shadow: -2rpx -2rpx 4rpx rgba(0, 0, 0, 0.06);
+}
+
+.detail-content {
+    position: relative;
+    z-index: 1;
+}
+
+.detail-title {
+    font-size: 30rpx;
+    color: #333;
+    margin-bottom: 24rpx;
+    display: block;
+}
+
+.score-input {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+}
+
+.score-input input {
+    flex: 1;
+    margin-left: 20rpx;
+    padding: 12rpx;
+    border-bottom: 2rpx solid #eee;
+}
+
+.scroll-view-container {
+    height: 900rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 新增属性，使元素水平居中 */
 }

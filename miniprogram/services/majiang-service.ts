@@ -15,3 +15,10 @@ export const deleteMajiangLog = (gameId: number): Promise<void> => {
     });
 }
 
+export const getMajiangPlayers = (): Promise<MajiangPlayers> => {
+    return request({
+        url: `/majiang/game/players`,
+        method: 'GET',
+    });
+}
+
