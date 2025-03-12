@@ -28,8 +28,8 @@
             </view>
             <!-- 第一部分：标题+换人按钮 -->
             <view class="section-header">
-                <text class="section-title">🙂选择赢家</text>
-                <text wx:if="{{!changingPlayers}}" class="replace-btn" bindtap="startChangePlayers">🔄牌桌换人</text>
+                <text class="section-title">🙂 选择赢家</text>
+                <text wx:if="{{!changingPlayers}}" class="replace-btn" bindtap="startChangePlayers">🔄 牌桌换人</text>
                 <text wx:else class="replace-btn" bindtap="stopChangePlayers">🍄 确认</text>
             </view>
 
@@ -37,10 +37,10 @@
             <block wx:if="{{!changingPlayers}}">
                 <view class="players-grid">
                     <view
-                            wx:for="{{players}}"
+                            wx:for="{{winPlayers}}"
                             wx:key="id"
                             class="player-card {{item.selected ? 'active' : ''}}"
-                            bindtap="selectPlayer"
+                            bindtap="selectWinPlayer"
                             data-id="{{item.id}}"
                             data-selected="{{item.selected}}"
                     >
@@ -49,25 +49,44 @@
                     </view>
                 </view>
 
-<!--                &lt;!&ndash; 第三部分：详情内容框 &ndash;&gt;-->
-<!--                <view-->
-<!--                        wx:if="{{activePlayer}}"-->
-<!--                        class="detail-box"-->
-<!--                        style="{{detailBoxStyle}}"-->
-<!--                >-->
-<!--                    &lt;!&ndash; 小箭头 &ndash;&gt;-->
-<!--                    <view class="arrow"></view>-->
+                <!--                &lt;!&ndash; 第三部分：详情内容框 &ndash;&gt;-->
+                <!--                <view-->
+                <!--                        wx:if="{{activePlayer}}"-->
+                <!--                        class="detail-box"-->
+                <!--                        style="{{detailBoxStyle}}"-->
+                <!--                >-->
+                <!--                    &lt;!&ndash; 小箭头 &ndash;&gt;-->
+                <!--                    <view class="arrow"></view>-->
 
-<!--                    &lt;!&ndash; 内容区域 &ndash;&gt;-->
-<!--                    <view class="detail-content">-->
-<!--                        <text class="detail-title">{{selectedPlayer.nickname}}的得分明细</text>-->
-<!--                        &lt;!&ndash; 这里可以扩展具体内容 &ndash;&gt;-->
-<!--                        <view class="score-input">-->
-<!--                            <text>底分：</text>-->
-<!--                            <input type="number" placeholder="输入分数"/>-->
-<!--                        </view>-->
-<!--                    </view>-->
-<!--                </view>-->
+                <!--                    &lt;!&ndash; 内容区域 &ndash;&gt;-->
+                <!--                    <view class="detail-content">-->
+                <!--                        <text class="detail-title">{{selectedPlayer.nickname}}的得分明细</text>-->
+                <!--                        &lt;!&ndash; 这里可以扩展具体内容 &ndash;&gt;-->
+                <!--                        <view class="score-input">-->
+                <!--                            <text>底分：</text>-->
+                <!--                            <input type="number" placeholder="输入分数"/>-->
+                <!--                        </view>-->
+                <!--                    </view>-->
+                <!--                </view>-->
+
+                <block wx:if="{{winType === '平胡'}}">
+                    <view class="section-header">
+                        <text class="section-title">☹️ 选择输家</text>
+                    </view>
+                    <view class="players-grid">
+                        <view
+                                wx:for="{{losePlayers}}"
+                                wx:key="id"
+                                class="player-card {{item.selected ? 'active' : ''}}"
+                                bindtap="selectLosePlayer"
+                                data-id="{{item.id}}"
+                                data-selected="{{item.selected}}"
+                        >
+                            <image class="player-avatar" src="{{item.avatar}}"/>
+                            <text class="player-name">{{item.username}}</text>
+                        </view>
+                    </view>
+                </block>
             </block>
             <block wx:else>
                 <scroll-view scroll-y class="scroll-view-container">

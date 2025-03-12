@@ -12,20 +12,21 @@ Component({
         activePlayer: null,
         detailBoxStyle: '',
 
-        players: [] as User[],
         allPlayers: [] as User[],
+        winPlayers: [] as User[],
+        losePlayers: [] as User[],
         changingPlayers: false,
         selectUserToPlayList: [] as number[],
         showButton: true,
     },
     lifetimes: {
         attached() {
-            console.log('attached');
+            console.log('rain, attached');
             getMajiangPlayers().then((res) => {
                 const currentIds = res.currentPlayers.map((player: User) => (player.id))
-
                 this.setData({
-                    players: res.currentPlayers.map((player: User) => ({...player, selected: false})),
+                    winPlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
+                    losePlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
                     allPlayers: res.allPlayers
                         .map((player: User) => {
                             if (currentIds.includes(player.id)) {
@@ -38,13 +39,11 @@ Component({
                 })
             })
         },
-
     },
     methods: {
         closeDrawer() {
             console.log('close drawer')
             this.setData({showDrawer: false})
-
         },
 
         submit() {
@@ -59,12 +58,13 @@ Component({
             console.log('selectWinType, type', type);
         },
         // 选择玩家
-        selectPlayer(e: any) {
+        selectWinPlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
             const selected = e.currentTarget.dataset.selected;
-            console.log('rain, selectPlayer', playerId, selected);
+            console.log('rain, selectWinPlayer', playerId, selected);
+
             this.setData({
-                players: this.data.players.map((player: User) => {
+                winPlayers: this.data.winPlayers.map((player: User) => {
                     if (player.id === playerId) {
                         return {...player, selected: !player.selected}
                     } else {
@@ -72,8 +72,20 @@ Component({
                     }
                 }),
             })
-
-
+        },
+        selectLosePlayer(e: any) {
+            const playerId = e.currentTarget.dataset.id;
+            // const selected = e.currentTarget.dataset.selected;
+            this.setData({
+                losePlayers: this.data.losePlayers.map((player: User) => {
+                    if (player.id === playerId) {
+                        return {...player, selected: !player.selected}
+                    } else {
+                        // 反选其他
+                        return {...player, selected: false}
+                    }
+                }),
+            })
         },
         selectPlayerToPlay(e: any) {
             const playerId = e.currentTarget.dataset.id;
@@ -116,12 +128,14 @@ Component({
             })
         },
         stopChangePlayers() {
+            const selectUser = this.data.allPlayers
+                .filter((player: User) => (this.data.selectUserToPlayList.includes(player.id)))
+                .map((player: User) => ({...player, selected: false}))
             this.setData({
                 changingPlayers: false,
                 showButton: true,
-                players: this.data.allPlayers
-                    .filter((player: User) => (this.data.selectUserToPlayList.includes(player.id)))
-                    .map((player: User) => ({...player, selected: false}))
+                winPlayers: [...selectUser],
+                losePlayers: [...selectUser],
             })
         }
     }
