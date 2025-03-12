@@ -8,3 +8,10 @@ export const getMajiangLog = (): Promise<MajiangLog[]> => {
     });
 }
 
+export const deleteMajiangLog = (gameId: number): Promise<void> => {
+    return request({
+        url: `/majiang/game?id=${gameId}`,
+        method: 'DELETE',
+    });
+}
+

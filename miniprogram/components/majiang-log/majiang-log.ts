@@ -1,3 +1,5 @@
+import {deleteMajiangLog} from "../../services/majiang-service";
+
 Component({
     properties: {
         listData: {
@@ -52,26 +54,14 @@ Component({
 
         // 执行删除操作
         deleteRecord(gameId: number) {
-            console.log('deleteRecord', gameId);
             if (!gameId) return;
 
-            // wx.request({
-            //     url: 'https://your-api.com/record/delete',
-            //     method: 'DELETE',
-            //     data: { id: this.data.currentDeleteId },
-            //     success: (res) => {
-            //         if (res.statusCode === 200) {
-            //             this.updateList();
-            //             wx.showToast({ title: '删除成功' });
-            //         }
-            //     },
-            //     fail: () => {
-            //         wx.showToast({ title: '删除失败', icon: 'none' });
-            //     }
-            // });
-            this.setData({
-                listData: this.data.listData.filter(item => (item.id !== gameId)),
-            })
+            deleteMajiangLog(gameId)
+                .then(() => {
+                    this.setData({
+                        listData: this.data.listData.filter(item => (item.id !== gameId)),
+                    })
+                })
         },
     }
 })
