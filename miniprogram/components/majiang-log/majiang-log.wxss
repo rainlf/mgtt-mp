@@ -17,7 +17,7 @@
     border-radius: 12rpx;
     margin: 20rpx;
     padding: 24rpx;
-    box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
 /* 头部信息 */
@@ -32,6 +32,13 @@
 .record-header-left {
     display: flex;
     justify-content: start;
+    align-items: center;
+}
+
+.record-header-right {
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 
 .win-type {
@@ -138,8 +145,22 @@
     height: 48rpx;
     border-radius: 50%;
     border: 2rpx solid #fff;
-    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+    box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
     margin-left: -12rpx;
     transition: transform 0.2s;
-    margin-right: 15rpx;
+    margin-right: 10rpx;
+}
+
+/* 调整删除按钮样式 */
+.delete-btn {
+    width: 36rpx;
+    height: 36rpx;
+    margin-left: 5rpx;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+.delete-btn:active {
+    transform: scale(1.2);
+    opacity: 1;
 }

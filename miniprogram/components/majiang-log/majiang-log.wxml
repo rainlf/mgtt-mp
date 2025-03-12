@@ -11,7 +11,7 @@
                 <!-- 对局信息头部 -->
                 <view class="record-header">
                     <view class="record-header-left">
-                        <block wx:if="{{item.type === '一炮双响' || item.type === '一炮三响'}}">
+                        <block wx:if="{{item.type === '自摸'}}">
                             <text class="win-type2">{{item.type}}</text>
                         </block>
                         <block wx:else>
@@ -26,9 +26,16 @@
                         </view>
                     </view>
 
-                    <text class="game-time">{{item.createdTime}}</text>
-
-
+                    <view class="record-header-right">
+                        <text class="game-time">{{item.createdTime}}</text>
+                        <image
+                                class="delete-btn"
+                                src="/images/delete.png"
+                                bindtap="showDeleteConfirm"
+                                data-id="{{item.id}}"
+                                mode="widthFix"
+                        />
+                    </view>
                 </view>
 
                 <!-- 赢家区域 -->
