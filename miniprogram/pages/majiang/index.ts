@@ -8,6 +8,7 @@ Page({
         rankList: [] as User[],
         gameList: [] as MajiangLog[],
         showGameLog: false,
+        showDrawer: true,
     },
     onLoad() {
     },
@@ -77,6 +78,9 @@ Page({
 
     saveGameLog() {
         console.log('saveGameLog');
+        this.setData({
+            showDrawer: true
+        })
     }
 
 })

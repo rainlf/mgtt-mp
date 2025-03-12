@@ -1,40 +1,45 @@
 <!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list"
-             refresher-enabled
-             bindrefresherrefresh="onRefresh"
-             refresher-triggered="{{isRefreshing}}"
->
-    <view class="container">
-        <view class="top-container">
-            <!-- userinfo 组件 -->
-            <userinfo class="user-info" username="{{user.username}}"
-                      points="{{user.points}}"
-                      avatar="{{user.avatar}}"
-            />
+<block>
+    <scroll-view class="scrollarea" scroll-y type="list"
+                 refresher-enabled
+                 bindrefresherrefresh="onRefresh"
+                 refresher-triggered="{{isRefreshing}}"
+    >
+        <view class="container">
+            <view class="top-container">
+                <!-- userinfo 组件 -->
+                <userinfo class="user-info" username="{{user.username}}"
+                          points="{{user.points}}"
+                          avatar="{{user.avatar}}"
+                />
 
-            <block wx:if="{{showGameLog}}">
-                <majiang-log
-                        listData="{{gameList}}"
-                        bind:load="handleGameListLoad"
-                />
-            </block>
-            <block wx:else>
-                <rank class="rank"
-                      listData="{{rankList}}"
-                      bind:load="handleRankListLoad"
-                />
-            </block>
+                <block wx:if="{{showGameLog}}">
+                    <majiang-log
+                            listData="{{gameList}}"
+                            bind:load="handleGameListLoad"
+                    />
+                </block>
+                <block wx:else>
+                    <rank class="rank"
+                          listData="{{rankList}}"
+                          bind:load="handleRankListLoad"
+                    />
+                </block>
+            </view>
+            <view class="bottom-container">
+                <block wx:if="{{showGameLog}}">
+                    <button class="history-btn" catch:tap="openUserRank">玩家排名</button>
+                </block>
+                <block wx:else>
+                    <button class="history-btn" catch:tap="openGameLog">对局记录</button>
+                </block>
+                <button class="start-btn" catch:tap="saveGameLog">开始记录</button>
+            </view>
+
+            <view class="game-container">
+                <majiang-game showDrawer="{{showDrawer}}"/>
+            </view>
 
         </view>
-        <view class="bottom-container">
-            <block wx:if="{{showGameLog}}">
-                <button class="history-btn" catch:tap="openUserRank">玩家排名</button>
-            </block>
-            <block wx:else>
-                <button class="history-btn" catch:tap="openGameLog">对局记录</button>
-            </block>
-
-            <button class="start-btn" catch:tap="saveGameLog">开始记录</button>
-        </view>
-    </view>
-</scroll-view>
+    </scroll-view>
+</block>

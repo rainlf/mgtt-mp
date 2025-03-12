@@ -1,0 +1,18 @@
+<!-- 抽屉容器 -->
+<view class="drawer-container" wx:if="{{showDrawer}}">
+    <!-- 遮罩层 -->
+    <view class="mask" bindtap="closeDrawer"></view>
+
+    <!-- 抽屉主体 -->
+    <view class="drawer-content">
+        <!-- 内容区域 -->
+        <view class="content">
+        </view>
+
+         操作按钮
+        <view class="action-buttons">
+            <view class="btn cancel" bindtap="closeDrawer">取消</view>
+            <view class="btn confirm" bindtap="closeDrawer">确认提交</view>
+        </view>
+    </view>
+</view>
