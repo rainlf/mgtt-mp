@@ -6,33 +6,45 @@
         refresher-triggered="{{isRefreshing}}"
 >
     <view class="list-content">
-        <block wx:for="{{gameRecords}}" wx:key="index">
+        <block wx:for="{{listData}}" wx:key="index">
             <view class="record-item">
                 <!-- 对局信息头部 -->
                 <view class="record-header">
-                    <block wx:if="{{item.winType === '一炮双响' || item.winType === '一炮三响'}}">
-                        <text class="win-type2">{{item.winType}}</text>
-                    </block>
-                    <block wx:else>
-                        <text class="win-type">{{item.winType}}</text>
-                    </block>
-                    <text class="game-time">{{item.time}}</text>
+                    <view class="record-header-left">
+                        <block wx:if="{{item.type === '一炮双响' || item.type === '一炮三响'}}">
+                            <text class="win-type2">{{item.type}}</text>
+                        </block>
+                        <block wx:else>
+                            <text class="win-type">{{item.type}}</text>
+                        </block>
+
+                        <view class="player-avatars">
+                            <image class="avatar-small" src="{{item.player1.avatar}}"/>
+                            <image class="avatar-small" src="{{item.player2.avatar}}"/>
+                            <image class="avatar-small" src="{{item.player3.avatar}}"/>
+                            <image class="avatar-small" src="{{item.player4.avatar}}"/>
+                        </view>
+                    </view>
+
+                    <text class="game-time">{{item.createdTime}}</text>
+
+
                 </view>
 
                 <!-- 赢家区域 -->
                 <view class="winner-section">
                     <block wx:for="{{item.winners}}" wx:key="userid">
                         <view class="player-row winner">
-                            <image class="avatar" src="{{item.avatar}}"/>
+                            <image class="avatar" src="{{item.user.avatar}}"/>
                             <view class="player-info">
-                                <text class="nickname">{{item.nickname}}</text>
+                                <text class="nickname">{{item.user.username}}</text>
                                 <view class="tags">
                                     <block wx:for="{{item.tags}}" wx:key="tag">
                                         <text class="tag win-tag">{{item}}</text>
                                     </block>
                                 </view>
                             </view>
-                            <text class="score-change +{{item.score}}">+{{item.score}}</text>
+                            <text class="score-change">+{{item.points}}</text>
                         </view>
                     </block>
                 </view>
@@ -41,24 +53,24 @@
                 <view class="loser-section">
                     <block wx:for="{{item.losers}}" wx:key="userid">
                         <view class="player-row loser">
-                            <image class="avatar" src="{{item.avatar}}"/>
+                            <image class="avatar" src="{{item.user.avatar}}"/>
                             <view class="player-info">
-                                <text class="nickname">{{item.nickname}}</text>
+                                <text class="nickname">{{item.user.username}}</text>
                                 <view class="tags">
                                     <block wx:for="{{item.tags}}" wx:key="tag">
                                         <text class="tag lose-tag">{{item}}</text>
                                     </block>
                                 </view>
                             </view>
-                            <text class="score-change2 -{{item.score}}">-{{item.score}}</text>
+                            <text class="score-change2">{{item.points}}</text>
                         </view>
                     </block>
                 </view>
 
                 <!-- 记账信息 -->
                 <view class="bookkeeping-info">
-                    <text>记账玩家：{{item.bookkeeper}}</text>
-                    <text>奖励积分：+{{item.bookkeeperPoint}}</text>
+                    <text>记账玩家：{{item.recorder.user.username}}</text>
+                    <text>奖励积分：+{{item.recorder.points}}</text>
                 </view>
             </view>
         </block>

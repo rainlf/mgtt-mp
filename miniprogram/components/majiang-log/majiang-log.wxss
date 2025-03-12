@@ -29,6 +29,11 @@
     border-bottom: 2rpx solid #eee;
 }
 
+.record-header-left {
+    display: flex;
+    justify-content: start;
+}
+
 .win-type {
     font-size: 32rpx;
     font-weight: 700;
@@ -120,4 +125,21 @@
     color: #999;
     display: flex;
     justify-content: space-between;
+}
+
+.player-avatars {
+    display: flex;
+    margin-left: 20rpx;
+    align-items: center;
+}
+
+.avatar-small {
+    width: 48rpx;
+    height: 48rpx;
+    border-radius: 50%;
+    border: 2rpx solid #fff;
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+    margin-left: -12rpx;
+    transition: transform 0.2s;
+    margin-right: 15rpx;
 }

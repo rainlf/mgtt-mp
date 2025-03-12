@@ -1,12 +1,12 @@
 import {getUserInfo, getUserRank} from "../../services/user-service";
+import {getMajiangLog} from "../../services/majiang-service";
 
 Page({
     data: {
         user: {} as User,
         isRefreshing: false,
         rankList: [] as User[],
-        // rain
-        gameList: [] as User[],
+        gameList: [] as MajiangLog[],
         showGameLog: false,
     },
     onLoad() {
@@ -18,9 +18,9 @@ Page({
         }
 
         this.fetchUserRank()
-        this.fetchGameList()
     },
 
+    // 子组件下拉刷新触发
     handleRankListLoad() {
         this.fetchUserRank()
     },
@@ -28,15 +28,15 @@ Page({
         this.fetchGameList()
     },
 
+    // 后台获取数据
     fetchUserRank() {
         getUserRank().then(rankList => {
             this.setData({rankList})
         })
     },
     fetchGameList() {
-        // rain
-        getUserRank().then(rankList => {
-            this.setData({rankList})
+        getMajiangLog().then(gameList => {
+            this.setData({gameList})
         })
     },
 
@@ -56,24 +56,23 @@ Page({
             });
         });
     },
-
     async loadData() {
         const user = await getUserInfo(this.data.user.id)
         this.setData({user});
     },
 
     openUserRank() {
+        this.fetchUserRank()
         this.setData({
             showGameLog: false
         })
-        console.log('rain openUserRank', this.data.showGameLog)
     },
 
     openGameLog() {
+        this.fetchGameList()
         this.setData({
             showGameLog: true
         })
-        console.log('rain openGameLog', this.data.showGameLog)
     },
 
     saveGameLog() {

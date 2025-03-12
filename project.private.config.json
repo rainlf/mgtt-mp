@@ -3,6 +3,7 @@
   "projectname": "mgtt-mp",
   "setting": {
     "compileHotReLoad": false,
-    "urlCheck": false
+    "urlCheck": false,
+    "skylineRenderEnable": true
   }
 }

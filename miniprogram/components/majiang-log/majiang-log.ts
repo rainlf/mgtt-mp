@@ -5,57 +5,6 @@ Component({
             value: []
         },
     },
-    data: {
-        isRefreshing: false,
-        gameRecords: [
-            {
-                winType: "一炮双响",
-                time: "2024-05-20 14:30",
-                bookkeeper: "麻将小助手",
-                bookkeeperPoint: 100,
-                winners: [{
-                    avatar: "/images/test.png",
-                    nickname: "糖炒栗子",
-                    score: 40,
-                    tags: ["庄家", "连庄"]
-                }],
-                losers: [{
-                    avatar: "/images/test.png",
-                    nickname: "玩家B",
-                    score: 20,
-                    tags: ["点炮"]
-                },{
-                    avatar: "/images/test.png",
-                    nickname: "玩家C",
-                    score: 20,
-                    tags: []
-                }]
-            },
-            {
-                winType: "一炮双响",
-                time: "2024-05-20 14:30",
-                bookkeeper: "麻将小助手",
-                bookkeeperPoint: 100,
-                winners: [{
-                    avatar: "/images/test.png",
-                    nickname: "糖炒栗子",
-                    score: 40,
-                    tags: ["庄家", "连庄"]
-                }],
-                losers: [{
-                    avatar: "/images/test.png",
-                    nickname: "玩家B",
-                    score: 20,
-                    tags: ["点炮"]
-                },{
-                    avatar: "/images/test.png",
-                    nickname: "玩家C",
-                    score: 20,
-                    tags: []
-                }]
-            }
-        ]
-    },
     methods: {
         onRefresh() {
             if (this.data.isRefreshing) {

@@ -7,3 +7,23 @@ interface User {
     createdTime: string;
     updatedTime: string;
 }
+
+interface MajiangLog {
+    id: number;
+    type: string;
+    player1: User;
+    player2: User;
+    player3: User;
+    player4: User;
+    createdTime: string;
+    updatedTime: string;
+    winners: MajiangLogItem[];
+    losers: MajiangLogItem[];
+    recorder: MajiangLogItem;
+}
+
+interface MajiangLogItem {
+    user: User;
+    points: number;
+    tags: string[];
+}
