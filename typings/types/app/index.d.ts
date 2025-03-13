@@ -7,6 +7,7 @@ interface User {
     createdTime: string;
     updatedTime: string;
     selected: boolean;
+    lastSelected: boolean;
     gameInfo: UserGameInfo;
 }
 

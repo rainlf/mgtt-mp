@@ -56,25 +56,36 @@
                     </view>
                 </view>
 
-                <!--                &lt;!&ndash; 第三部分：详情内容框 &ndash;&gt;-->
-                <!--                <view-->
-                <!--                        wx:if="{{activePlayer}}"-->
-                <!--                        class="detail-box"-->
-                <!--                        style="{{detailBoxStyle}}"-->
-                <!--                >-->
-                <!--                    &lt;!&ndash; 小箭头 &ndash;&gt;-->
-                <!--                    <view class="arrow"></view>-->
 
-                <!--                    &lt;!&ndash; 内容区域 &ndash;&gt;-->
-                <!--                    <view class="detail-content">-->
-                <!--                        <text class="detail-title">{{selectedPlayer.nickname}}的得分明细</text>-->
-                <!--                        &lt;!&ndash; 这里可以扩展具体内容 &ndash;&gt;-->
-                <!--                        <view class="score-input">-->
-                <!--                            <text>底分：</text>-->
-                <!--                            <input type="number" placeholder="输入分数"/>-->
-                <!--                        </view>-->
-                <!--                    </view>-->
-                <!--                </view>-->
+                <block
+                        wx:for="{{winPlayers}}"
+                        wx:key="id"
+                >
+                    <view
+
+                            wx:if="{{item.lastSelected}}"
+                            class="detail-box"
+                    >
+                        <!-- 内容区域 -->
+                        <view class="detail-content">
+                            <text class="detail-title">{{item.username}} 得分: </text>
+                            <!-- 这里可以扩展具体内容 -->
+                            <view class="score-input">
+                                <text>底分：</text>
+                                <input type="number" placeholder="输入分数"/>
+                            </view>
+                            <view class="score-input">
+                                <text>底分：</text>
+                                <input type="number" placeholder="输入分数"/>
+                            </view>
+                            <view class="score-input">
+                                <text>底分：</text>
+                                <input type="number" placeholder="输入分数"/>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+
 
                 <block wx:if="{{winType !== '自摸'}}">
                     <view class="section-header">

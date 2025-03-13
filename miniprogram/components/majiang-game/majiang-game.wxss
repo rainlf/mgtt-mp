@@ -221,8 +221,8 @@
 
 /* 第三部分：详情框 */
 .detail-box {
-    position: relative;
-    margin: 40rpx 32rpx;
+    width: 90%;
+    margin: 0 32rpx;
     padding: 32rpx;
     background: #fff;
     border-radius: 16rpx;
@@ -243,6 +243,7 @@
 .detail-content {
     position: relative;
     z-index: 1;
+    width: 100%;
 }
 
 .detail-title {

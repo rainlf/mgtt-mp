@@ -9,9 +9,6 @@ Component({
     },
     data: {
         winType: '平胡', // 默认选中平胡
-        activePlayer: null,
-        detailBoxStyle: '',
-
         allPlayers: [] as User[],
         winPlayers: [] as User[],
         losePlayers: [] as User[],
@@ -79,9 +76,9 @@ Component({
                 this.setData({
                     winPlayers: this.data.winPlayers.map((player: User) => {
                         if (player.id === playerId) {
-                            return {...player, selected: !player.selected}
+                            return {...player, selected: !player.selected, lastSelected: true}
                         } else {
-                            return player;
+                            return {...player, lastSelected: false};
                         }
                     }),
                 })
@@ -89,16 +86,14 @@ Component({
                 this.setData({
                     winPlayers: this.data.winPlayers.map((player: User) => {
                         if (player.id === playerId) {
-                            return {...player, selected: !player.selected}
+                            return {...player, selected: !player.selected, lastSelected: true}
                         } else {
                             // 反选其他
-                            return {...player, selected: false}
+                            return {...player, selected: false, lastSelected: false}
                         }
                     }),
                 })
             }
-
-
         },
         selectLosePlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
