@@ -24,6 +24,13 @@
                     >
                         自摸
                     </view>
+                    <view
+                            class="type-btn {{winType === '多赢家' ? 'active' : ''}}"
+                            bindtap="selectWinType"
+                            data-type="多赢家"
+                    >
+                        多赢家
+                    </view>
                 </view>
             </view>
             <!-- 第一部分：标题+换人按钮 -->
@@ -69,7 +76,7 @@
                 <!--                    </view>-->
                 <!--                </view>-->
 
-                <block wx:if="{{winType === '平胡'}}">
+                <block wx:if="{{winType !== '自摸'}}">
                     <view class="section-header">
                         <text class="section-title">☹️ 选择输家</text>
                     </view>

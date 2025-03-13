@@ -52,10 +52,8 @@ Component({
         },
         // 选择胡牌类型
         selectWinType(e: any) {
-            console.log('selectWinType')
             const type = e.currentTarget.dataset.type;
             this.setData({winType: type});
-            console.log('selectWinType, type', type);
         },
         // 选择玩家
         selectWinPlayer(e: any) {
@@ -63,15 +61,44 @@ Component({
             const selected = e.currentTarget.dataset.selected;
             console.log('rain, selectWinPlayer', playerId, selected);
 
-            this.setData({
-                winPlayers: this.data.winPlayers.map((player: User) => {
-                    if (player.id === playerId) {
-                        return {...player, selected: !player.selected}
-                    } else {
-                        return player;
+            if (this.data.winType === '多赢家') {
+                let count = 0
+                this.data.winPlayers.forEach((player: User) => {
+                    if (player.selected) {
+                        count++
                     }
-                }),
-            })
+                })
+                if (selected === false && count >= 3) {
+                    wx.showToast({
+                        title: '最多 3 个赢家 😏',
+                        icon: 'none',
+                        duration: 1000
+                    })
+                    return;
+                }
+                this.setData({
+                    winPlayers: this.data.winPlayers.map((player: User) => {
+                        if (player.id === playerId) {
+                            return {...player, selected: !player.selected}
+                        } else {
+                            return player;
+                        }
+                    }),
+                })
+            } else {
+                this.setData({
+                    winPlayers: this.data.winPlayers.map((player: User) => {
+                        if (player.id === playerId) {
+                            return {...player, selected: !player.selected}
+                        } else {
+                            // 反选其他
+                            return {...player, selected: false}
+                        }
+                    }),
+                })
+            }
+
+
         },
         selectLosePlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
