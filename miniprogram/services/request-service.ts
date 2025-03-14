@@ -12,11 +12,31 @@ interface ApiResponse<T> {
 }
 
 export const server = 'http://localhost:8080'
+export const serverPro = 'https://mp.guanshantech.com'
+
+export const getServer = () => {
+    const accountInfo = wx.getAccountInfoSync();
+    if (accountInfo.miniProgram.envVersion === 'develop') {
+        return server
+    } else {
+        return serverPro
+    }
+    // 根据版本类型返回不同地址
+    // switch (accountInfo.miniProgram.envVersion) {
+    //     case 'release':  // 正式版
+    //         return 'https://api.yourdomain.com';
+    //     case 'trial':    // 体验版
+    //         return 'https://staging.yourdomain.com';
+    //     default:         // 开发版（含本地调试）
+    //         return 'http://localhost:8080';
+    // }
+};
+
 
 export const request = <T>(options: RequestOptions): Promise<T> => {
     const fullUrl = options.url.startsWith('http')
         ? options.url
-        : `${server}${options.url}`;
+        : `${getServer()}${options.url}`;
 
     return new Promise((resolve, reject) => {
         wx.request({

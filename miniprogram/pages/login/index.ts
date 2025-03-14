@@ -1,4 +1,4 @@
-import {server} from "../../services/request-service";
+import {getServer} from "../../services/request-service";
 
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
 
@@ -79,7 +79,7 @@ Page({
         }
         console.log('login', this.data.userInfo)
         wx.uploadFile({
-            url: `${server}/user/info`, //仅为示例，非真实的接口地址
+            url: `${getServer()}/user/info`, //仅为示例，非真实的接口地址
             filePath: this.data.userInfo.avatarUrl,
             name: 'avatar',
             formData: {
