@@ -298,7 +298,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
 }
 
 /* 点击反馈效果 */
@@ -309,7 +309,7 @@
 
 /* 按钮动效 */
 .delete-btn:active {
-    box-shadow: 0 0rpx 4rpx rgba(0,0,0,0.2);
+    box-shadow: 0 0rpx 4rpx rgba(0, 0, 0, 0.2);
 }
 
 /* 文字内容样式 */
@@ -327,7 +327,105 @@
 }
 
 @keyframes dotting {
-    0% { content: "."; }
-    33% { content: ".."; }
-    66% { content: "..."; }
+    0% {
+        content: ".";
+    }
+    33% {
+        content: "..";
+    }
+    66% {
+        content: "...";
+    }
+}
+
+
+/* 底分样式 */
+.name {
+    font-size: 34rpx;
+    color: #4B5563;
+    font-weight: 500;
+}
+
+.base-score {
+    font-size: 36rpx;
+    color: #EF4444;
+    font-weight: 600;
+}
+
+/* 按钮行布局 */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30rpx;
+    gap: 20rpx;
+}
+
+.tag-group {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16rpx;
+}
+
+/* 标签按钮样式 */
+.tag-btn {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 16rpx;
+    background: #F3F4F6;
+    color: #6B7280;
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: 5rpx;
+}
+
+.tag-btn.active {
+    background: cornflowerblue;
+    color: white;
+    box-shadow: 0 4rpx 12rpx rgba(239, 68, 68, 0.3);
+}
+
+/* 操作按钮组 */
+.action-group {
+    display: flex;
+    /*flex-direction: column;*/
+    gap: 12rpx;
+}
+
+.action-btn {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    background: #E6F4FF;
+    color: #1A73E8;
+    font-size: 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-left: 15rpx;
+}
+
+/* 交互反馈 */
+.tag-btn-hover {
+    transform: translateY(-2rpx);
+}
+
+.action-btn-hover {
+    background: #B6D7FF !important;
+}
+
+.action-btn:active {
+    transform: scale(0.92);
+}
+
+.plus:active {
+    color: #22C55E; /* 加号点击色 */
+}
+
+.minus:active {
+    color: #DC2626; /* 减号点击色 */
 }

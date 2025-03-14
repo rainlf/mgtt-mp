@@ -16,6 +16,19 @@ Component({
         selectUserToPlayList: [] as number[],
         showButton: true,
 
+        // 底分
+        basePoints: 0,
+        points: [
+            {name: 2, point: 2, selected: false},
+            {name: 3, point: 3, selected: false},
+            {name: 4, point: 4, selected: false},
+            {name: 5, point: 5, selected: false},
+            {name: 6, point: 6, selected: false},
+            {name: 7, point: 7, selected: false},
+            {name: 8, point: 8, selected: false},
+            {name: '🍒', point: 10, selected: false},
+        ],
+
         selectedBaseScore: null,  // 单选存储
         tags: [                   // 示例数据
             {id: 1, name: '红中', selected: false},
@@ -49,8 +62,56 @@ Component({
         },
     },
     methods: {
+        // 清空
         handleDelete() {
             console.log('handleDelete');
+        },
+
+        // 底分
+        selectTag(e: any) {
+            const name = e.currentTarget.dataset.name;
+            const selected = e.currentTarget.dataset.selected;
+            const point = e.currentTarget.dataset.point;
+            console.log('selectTag', name, selected, point);
+
+            this.setData({
+                points: this.data.points.map((point: any) => {
+                    if (point.name === name) {
+                        return {...point, selected: true};
+                    } else {
+                        return {...point, selected: false};
+                    }
+                }),
+                basePoints: point
+            })
+        },
+        handleDecrease() {
+            const target = this.data.basePoints - 1
+            if (target < 0) {
+                wx.showToast({
+                    title: '底分不能小于 0 呀 😏',
+                    icon: 'none',
+                    duration: 1000
+                })
+                return;
+            }
+            this.setData({
+                basePoints: target
+            })
+        },
+        handleIncrease() {
+            const target = this.data.basePoints + 1
+            if (target > 20) {
+                wx.showToast({
+                    title: '底分是不是太大了呀 😏',
+                    icon: 'none',
+                    duration: 1000
+                })
+                return;
+            }
+            this.setData({
+                basePoints: target
+            })
         },
 
 

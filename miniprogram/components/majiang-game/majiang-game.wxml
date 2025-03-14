@@ -72,6 +72,8 @@
                                 <view class="detail-row-title">
                                     <text>{{item.username}} </text>
                                     <text class="detail-title">得分: </text>
+                                    <text>{{basePoints}}</text>
+                                    <text> x </text>
                                 </view>
 
                                 <view
@@ -83,6 +85,43 @@
                                     x
                                 </view>
                             </view>
+
+                            <!-- 标签按钮行 -->
+                            <view class="button-row">
+                                <view class="tag-group">
+                                    <view
+                                            wx:for="{{points}}"
+                                            wx:key="index"
+                                            class="tag-btn {{item.selected ? 'active' : ''}}"
+                                            bindtap="selectTag"
+                                            data-name="{{item.name}}"
+                                            data-selected="{{item.selected}}"
+                                            data-point="{{item.point}}"
+                                            hover-class="tag-btn-hover"
+                                    >
+                                        {{item.name}}
+                                    </view>
+                                </view>
+
+                                <!-- 操作按钮组 -->
+                                <view class="action-group">
+                                    <view
+                                            class="action-btn minus"
+                                            bindtap="handleDecrease"
+                                            hover-class="action-btn-hover"
+                                    >
+                                        <text>−</text>
+                                    </view>
+                                    <view
+                                            class="action-btn plus"
+                                            bindtap="handleIncrease"
+                                            hover-class="action-btn-hover"
+                                    >
+                                        +
+                                    </view>
+                                </view>
+                            </view>
+
                         </view>
                     </view>
                 </block>
