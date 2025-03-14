@@ -33,7 +33,7 @@
                 <block wx:else>
                     <button class="history-btn" catch:tap="openGameLog">对局记录</button>
                 </block>
-                <button class="start-btn" catch:tap="saveGameLog">开始记录</button>
+                <button class="start-btn" catch:tap="showSaveGameLog">开始记录</button>
             </view>
 
             <view class="game-container">

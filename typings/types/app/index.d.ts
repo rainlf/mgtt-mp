@@ -12,9 +12,9 @@ interface User {
 }
 
 interface UserGameInfo {
-    userId: number;
     basePoints: number;
-    winTypes: [];
+    winTypes: string[];
+    multi: number;
 }
 
 // declare enum GameType {

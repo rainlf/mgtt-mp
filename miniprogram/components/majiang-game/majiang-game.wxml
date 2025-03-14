@@ -51,6 +51,7 @@
                             bindtap="selectWinPlayer"
                             data-id="{{item.id}}"
                             data-selected="{{item.selected}}"
+                            data-lastSelected="{{item.lastSelected}}"
                     >
                         <image class="player-avatar" src="{{item.avatar}}"/>
                         <text class="player-name">{{item.username}}</text>
@@ -60,29 +61,30 @@
                 <block
                         wx:for="{{winPlayers}}"
                         wx:key="id"
+                        wx:for-item="user"
                 >
                     <view
 
-                            wx:if="{{item.lastSelected}}"
+                            wx:if="{{user.lastSelected}}"
                             class="detail-box"
                     >
                         <!-- 得分计算区域 -->
                         <view class="detail-content">
                             <view class="detail-row">
                                 <view class="detail-row-title">
-                                    <text>{{item.username}} </text>
+                                    <text>{{user.username}} </text>
                                     <text class="detail-title">得分:</text>
-                                    <text style="margin-left: 10rpx">{{basePoints}}</text>
+                                    <text style="margin-left: 10rpx">{{user.gameInfo.basePoints}}</text>
                                     <text style="margin-left: 10rpx"> x </text>
-                                    <text style="margin-left: 10rpx">{{multi}}</text>
+                                    <text style="margin-left: 10rpx">{{user.gameInfo.multi}}</text>
                                     <text style="margin-left: 10rpx"> = </text>
-                                    <text style="margin-left: 10rpx">{{basePoints * multi}}</text>
+                                    <text style="margin-left: 10rpx">{{user.gameInfo.basePoints * user.gameInfo.multi}}</text>
                                 </view>
 
                                 <view
                                         class="delete-btn"
                                         bindtap="handleDelete"
-                                        data-id="{{item.id}}"
+                                        data-id="{{user.id}}"
                                         hover-class="delete-btn-hover"
                                 >
                                     x
@@ -97,10 +99,11 @@
                                             wx:for="{{points}}"
                                             wx:key="index"
                                             class="tag-btn {{item.selected ? 'active' : ''}}"
-                                            bindtap="selectTag"
+                                            bindtap="selectBasePoints"
                                             data-name="{{item.name}}"
                                             data-selected="{{item.selected}}"
                                             data-point="{{item.point}}"
+                                            data-userId="{{user.id}}"
                                             hover-class="tag-btn-hover"
                                     >
                                         {{item.name}}
@@ -112,6 +115,7 @@
                                     <view
                                             class="action-btn minus"
                                             bindtap="handleDecrease"
+                                            data-userId="{{user.id}}"
                                             hover-class="action-btn-hover"
                                     >
                                         <text>−</text>
@@ -119,6 +123,7 @@
                                     <view
                                             class="action-btn plus"
                                             bindtap="handleIncrease"
+                                            data-userId="{{user.id}}"
                                             hover-class="action-btn-hover"
                                     >
                                         +
@@ -138,6 +143,7 @@
                                             data-name="{{item.name}}"
                                             data-multi="{{item.multi}}"
                                             data-selected="{{item.selected}}"
+                                            data-userId="{{user.id}}"
                                             hover-class="tile-btn-hover"
                                     >
                                         {{item.name}}

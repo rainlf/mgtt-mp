@@ -76,11 +76,9 @@ Page({
         })
     },
 
-    saveGameLog() {
-        console.log('saveGameLog');
+    showSaveGameLog() {
         this.setData({
             showDrawer: true
         })
-    }
-
+    },
 })

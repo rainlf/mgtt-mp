@@ -17,7 +17,6 @@ Component({
         showButton: true,
 
         // 底分
-        basePoints: 0,
         points: [
             {name: 2, point: 2, selected: false},
             {name: 3, point: 3, selected: false},
@@ -30,7 +29,6 @@ Component({
         ],
 
         // 牌型
-        multi: 1,
         winTypes: [
             {name: '碰碰胡', multi: 2, selected: false},
             {name: '一条龙', multi: 2, selected: false},
@@ -42,16 +40,24 @@ Component({
             {name: '杠开花', multi: 2, selected: false},
         ],
     },
-    lifetimes: {
-        attached() {
-            console.log('rain, attached');
+    observers: {
+        'showDrawer': function (val) {
+            if (val) {
+                this.loadData()
+            }
+        }
+    },
+    methods: {
+        // load data
+        loadData() {
             getMajiangPlayers().then((res) => {
                 const currentIds = res.currentPlayers.map((player: User) => (player.id))
                 this.setData({
                     winPlayers: res.currentPlayers.map((player: User, index: number) => ({
                         ...player,
                         selected: index === 0,
-                        lastSelected: index === 0
+                        lastSelected: index === 0,
+                        gameInfo: {basePoints: 0, winTypes: [], multi: 1},
                     })),
                     losePlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
                     allPlayers: res.allPlayers
@@ -66,19 +72,34 @@ Component({
                 })
             })
         },
-    },
-    methods: {
+
         // 清空
-        handleDelete() {
-            console.log('handleDelete');
+        handleDelete(e: any) {
+            const userId = e.currentTarget.dataset.id;
+            console.log('handleDelete', userId);
+            this.setData({
+                winPlayers: this.data.winPlayers.map((player: User) => {
+                    if (player.id === userId) {
+                        return {...player, gameInfo: {basePoints: 0, winTypes: [], multi: 1}};
+                    } else {
+                        return player
+                    }
+                }),
+                // 底分全部反选
+                points: this.data.points.map((point: any) => ({...point, selected: false})),
+                // 牌型全部反选
+                winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
+            })
         },
 
         // 底分
-        selectTag(e: any) {
+        selectBasePoints(e: any) {
             const name = e.currentTarget.dataset.name;
             const selected = e.currentTarget.dataset.selected;
             const point = e.currentTarget.dataset.point;
-            console.log('selectTag', name, selected, point);
+            const userId = e.currentTarget.dataset.userid;
+            console.log('selectBasePoints', name, selected, point, userId);
+            console.log('selectBasePoints2', e.currentTarget.dataset);
 
             this.setData({
                 points: this.data.points.map((point: any) => {
@@ -88,11 +109,21 @@ Component({
                         return {...point, selected: false};
                     }
                 }),
-                basePoints: point
+                winPlayers: this.data.winPlayers.map((user: User) => {
+                    if (user.id === userId) {
+                        return {...user, gameInfo: {...user.gameInfo, basePoints: point}}
+                    } else {
+                        return user
+                    }
+                })
             })
         },
-        handleDecrease() {
-            const target = this.data.basePoints - 1
+        handleDecrease(e: any) {
+            const userId = e.currentTarget.dataset.userid;
+            console.log('handleDecrease', userId);
+
+            const user = this.data.winPlayers.filter(x => x.id === userId)[0]
+            const target = user.gameInfo.basePoints - 1
             if (target < 0) {
                 wx.showToast({
                     title: '底分不能小于 0 呀 😏',
@@ -102,11 +133,21 @@ Component({
                 return;
             }
             this.setData({
-                basePoints: target
+                winPlayers: this.data.winPlayers.map((player: User) => {
+                    if (player.id === userId) {
+                        return {...player, gameInfo: {...player.gameInfo, basePoints: target}};
+                    } else {
+                        return player
+                    }
+                })
             })
         },
-        handleIncrease() {
-            const target = this.data.basePoints + 1
+        handleIncrease(e: any) {
+            const userId = e.currentTarget.dataset.userid;
+            console.log('handleIncrease', userId);
+
+            const user = this.data.winPlayers.filter(x => x.id === userId)[0]
+            const target = user.gameInfo.basePoints + 1
             if (target > 20) {
                 wx.showToast({
                     title: '底分是不是太大了呀 😏',
@@ -116,24 +157,23 @@ Component({
                 return;
             }
             this.setData({
-                basePoints: target
+                winPlayers: this.data.winPlayers.map((player: User) => {
+                    if (player.id === userId) {
+                        return {...player, gameInfo: {...player.gameInfo, basePoints: target}};
+                    } else {
+                        return player
+                    }
+                })
             })
         },
+
         // 翻倍牌型
         toggleWinType(e: any) {
             const name = e.currentTarget.dataset.name;
             const multi = e.currentTarget.dataset.multi;
             const selected = e.currentTarget.dataset.selected;
-            console.log('selectTag', name, multi, selected);
-
-            let totalMulti = this.data.multi
-            if (selected) {
-                // 取消点击
-                totalMulti /= multi
-            } else {
-                // 点击
-                totalMulti *= multi
-            }
+            const userId = e.currentTarget.dataset.userid;
+            console.log('toggleWinType', name, multi, selected, userId);
 
             this.setData({
                 winTypes: this.data.winTypes.map((type: any) => {
@@ -143,32 +183,52 @@ Component({
                         return type
                     }
                 }),
-                multi: totalMulti
+                winPlayers: this.data.winPlayers.map((player: User) => {
+                    if (player.id === userId) {
+                        let totalMulti = player.gameInfo.multi
+                        let totalWinTypes = player.gameInfo.winTypes
+                        if (selected) {
+                            // 取消点击
+                            totalMulti /= multi
+                            totalWinTypes = totalWinTypes.filter(x => x !== name)
+                        } else {
+                            // 点击
+                            totalMulti *= multi
+                            totalWinTypes = [...totalWinTypes, name]
+                        }
+                        return {...player, gameInfo: {...player.gameInfo, winTypes: totalWinTypes, multi: totalMulti}}
+                    } else {
+                        return player
+                    }
+                })
             })
         },
 
-
-        closeDrawer() {
-            console.log('close drawer')
-            this.setData({showDrawer: false})
-        },
-
-        submit() {
-            console.log('submit')
-            this.setData({showDrawer: false})
-        },
         // 选择胡牌类型
         selectWinType(e: any) {
             const type = e.currentTarget.dataset.type;
-            this.setData({gameType: type});
+            this.setData({
+                gameType: type,
+                // 全部用户积分配置清零
+                winPlayers: this.data.winPlayers.map((player: User) => {
+                    return {...player, gameInfo: {basePoints: 0, winTypes: [], multi: 1}}
+                }),
+                // 底分全部反选
+                points: this.data.points.map((point: any) => ({...point, selected: false})),
+                // 牌型全部反选
+                winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
+            });
         },
-        // 选择玩家
+
+        // 选择赢家
         selectWinPlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
             const selected = e.currentTarget.dataset.selected;
-            console.log('rain, selectWinPlayer', playerId, selected);
+            const lastSelected = e.currentTarget.dataset.lastselected;
+            console.log('rain, selectWinPlayer', playerId, selected, lastSelected);
 
             if (this.data.gameType === '多赢家') {
+                // 一炮多响
                 let count = 0
                 this.data.winPlayers.forEach((player: User) => {
                     if (player.selected) {
@@ -191,17 +251,31 @@ Component({
                             return {...player, lastSelected: false};
                         }
                     }),
+                    // 底分全部反选
+                    points: this.data.points.map((point: any) => ({...point, selected: false})),
+                    // 牌型全部反选
+                    winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
                 })
             } else {
+                // 平胡，自摸
                 this.setData({
                     winPlayers: this.data.winPlayers.map((player: User) => {
                         if (player.id === playerId) {
                             return {...player, selected: !player.selected, lastSelected: true}
                         } else {
-                            // 反选其他
-                            return {...player, selected: false, lastSelected: false}
+                            // 反选其他，并清空分数配置
+                            return {
+                                ...player,
+                                selected: false,
+                                lastSelected: false,
+                                gameInfo: {basePoints: 0, winTypes: [], multi: 1}
+                            }
                         }
                     }),
+                    // 底分全部反选
+                    points: this.data.points.map((point: any) => ({...point, selected: false})),
+                    // 牌型全部反选
+                    winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
                 })
             }
         },
@@ -266,9 +340,22 @@ Component({
             this.setData({
                 changingPlayers: false,
                 showButton: true,
-                winPlayers: [...selectUser],
+                winPlayers: selectUser.map((player: User) => ({
+                    ...player,
+                    gameInfo: {basePoints: 0, winTypes: [], multi: 1}
+                })),
                 losePlayers: [...selectUser],
             })
-        }
+        },
+
+        closeDrawer() {
+            console.log('close drawer')
+            this.setData({showDrawer: false})
+        },
+
+        submit() {
+            console.log('submit')
+            this.setData({showDrawer: false})
+        },
     }
 })
