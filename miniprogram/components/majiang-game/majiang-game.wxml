@@ -68,19 +68,20 @@
                     >
                         <!-- 内容区域 -->
                         <view class="detail-content">
-                            <text class="detail-title">{{item.username}} 得分: </text>
-                            <!-- 这里可以扩展具体内容 -->
-                            <view class="score-input">
-                                <text>底分：</text>
-                                <input type="number" placeholder="输入分数"/>
-                            </view>
-                            <view class="score-input">
-                                <text>底分：</text>
-                                <input type="number" placeholder="输入分数"/>
-                            </view>
-                            <view class="score-input">
-                                <text>底分：</text>
-                                <input type="number" placeholder="输入分数"/>
+                            <view class="detail-row">
+                                <view class="detail-row-title">
+                                    <text>{{item.username}} </text>
+                                    <text class="detail-title">得分: </text>
+                                </view>
+
+                                <view
+                                        class="delete-btn"
+                                        bindtap="handleDelete"
+                                        data-id="{{item.id}}"
+                                        hover-class="delete-btn-hover"
+                                >
+                                    x
+                                </view>
                             </view>
                         </view>
                     </view>

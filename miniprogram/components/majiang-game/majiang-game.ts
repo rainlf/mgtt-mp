@@ -15,6 +15,13 @@ Component({
         changingPlayers: false,
         selectUserToPlayList: [] as number[],
         showButton: true,
+
+        selectedBaseScore: null,  // 单选存储
+        tags: [                   // 示例数据
+            {id: 1, name: '红中', selected: false},
+            {id: 2, name: '白板', selected: false},
+            {id: 3, name: '发财', selected: false},
+        ]
     },
     lifetimes: {
         attached() {
@@ -22,7 +29,11 @@ Component({
             getMajiangPlayers().then((res) => {
                 const currentIds = res.currentPlayers.map((player: User) => (player.id))
                 this.setData({
-                    winPlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
+                    winPlayers: res.currentPlayers.map((player: User, index: number) => ({
+                        ...player,
+                        selected: index === 0,
+                        lastSelected: index === 0
+                    })),
                     losePlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
                     allPlayers: res.allPlayers
                         .map((player: User) => {
@@ -38,6 +49,11 @@ Component({
         },
     },
     methods: {
+        handleDelete() {
+            console.log('handleDelete');
+        },
+
+
         closeDrawer() {
             console.log('close drawer')
             this.setData({showDrawer: false})
