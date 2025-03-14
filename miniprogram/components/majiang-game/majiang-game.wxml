@@ -197,7 +197,7 @@
 
         <view wx:if="{{showButton}}" class="drawer-content-bottom">
             <view class="btn cancel" bindtap="closeDrawer">取消</view>
-            <view class="btn confirm" bindtap="closeDrawer">确认提交</view>
+            <view class="btn confirm" bindtap="showSubmit">确认提交</view>
         </view>
     </view>
 </view>
