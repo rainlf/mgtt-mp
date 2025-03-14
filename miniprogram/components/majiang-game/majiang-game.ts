@@ -8,7 +8,7 @@ Component({
         }
     },
     data: {
-        winType: '平胡', // 默认选中平胡
+        gameType: '平胡', // 默认选中平胡
         allPlayers: [] as User[],
         winPlayers: [] as User[],
         losePlayers: [] as User[],
@@ -29,12 +29,18 @@ Component({
             {name: '🍒', point: 10, selected: false},
         ],
 
-        selectedBaseScore: null,  // 单选存储
-        tags: [                   // 示例数据
-            {id: 1, name: '红中', selected: false},
-            {id: 2, name: '白板', selected: false},
-            {id: 3, name: '发财', selected: false},
-        ]
+        // 牌型
+        multi: 1,
+        winTypes: [
+            {name: '碰碰胡', multi: 2, selected: false},
+            {name: '一条龙', multi: 2, selected: false},
+            {name: '混一色', multi: 2, selected: false},
+            {name: '清一色', multi: 4, selected: false},
+            {name: '小七对', multi: 2, selected: false},
+            {name: '龙七对', multi: 4, selected: false},
+            {name: '门前清', multi: 2, selected: false},
+            {name: '杠开花', multi: 2, selected: false},
+        ],
     },
     lifetimes: {
         attached() {
@@ -113,6 +119,33 @@ Component({
                 basePoints: target
             })
         },
+        // 翻倍牌型
+        toggleWinType(e: any) {
+            const name = e.currentTarget.dataset.name;
+            const multi = e.currentTarget.dataset.multi;
+            const selected = e.currentTarget.dataset.selected;
+            console.log('selectTag', name, multi, selected);
+
+            let totalMulti = this.data.multi
+            if (selected) {
+                // 取消点击
+                totalMulti /= multi
+            } else {
+                // 点击
+                totalMulti *= multi
+            }
+
+            this.setData({
+                winTypes: this.data.winTypes.map((type: any) => {
+                    if (type.name === name) {
+                        return {...type, selected: !type.selected}
+                    } else {
+                        return type
+                    }
+                }),
+                multi: totalMulti
+            })
+        },
 
 
         closeDrawer() {
@@ -127,7 +160,7 @@ Component({
         // 选择胡牌类型
         selectWinType(e: any) {
             const type = e.currentTarget.dataset.type;
-            this.setData({winType: type});
+            this.setData({gameType: type});
         },
         // 选择玩家
         selectWinPlayer(e: any) {
@@ -135,7 +168,7 @@ Component({
             const selected = e.currentTarget.dataset.selected;
             console.log('rain, selectWinPlayer', playerId, selected);
 
-            if (this.data.winType === '多赢家') {
+            if (this.data.gameType === '多赢家') {
                 let count = 0
                 this.data.winPlayers.forEach((player: User) => {
                     if (player.selected) {

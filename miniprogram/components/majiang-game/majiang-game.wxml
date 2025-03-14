@@ -11,21 +11,21 @@
                 <text class="selector-label">胡牌：</text>
                 <view class="type-buttons">
                     <view
-                            class="type-btn {{winType === '平胡' ? 'active' : ''}}"
+                            class="type-btn {{gameType === '平胡' ? 'active' : ''}}"
                             bindtap="selectWinType"
                             data-type="平胡"
                     >
                         平胡
                     </view>
                     <view
-                            class="type-btn {{winType === '自摸' ? 'active' : ''}}"
+                            class="type-btn {{gameType === '自摸' ? 'active' : ''}}"
                             bindtap="selectWinType"
                             data-type="自摸"
                     >
                         自摸
                     </view>
                     <view
-                            class="type-btn {{winType === '多赢家' ? 'active' : ''}}"
+                            class="type-btn {{gameType === '多赢家' ? 'active' : ''}}"
                             bindtap="selectWinType"
                             data-type="多赢家"
                     >
@@ -35,13 +35,14 @@
             </view>
             <!-- 第一部分：标题+换人按钮 -->
             <view class="section-header">
-                <text class="section-title">🙂 选择赢家</text>
+                <text class="section-title-user">🙂 选择赢家</text>
                 <text wx:if="{{!changingPlayers}}" class="replace-btn" bindtap="startChangePlayers">🔄 牌桌换人</text>
                 <text wx:else class="replace-btn" bindtap="stopChangePlayers">🍄 确认</text>
             </view>
 
             <!-- 第二部分：玩家列表 -->
             <block wx:if="{{!changingPlayers}}">
+                <!-- 选择赢家 -->
                 <view class="players-grid">
                     <view
                             wx:for="{{winPlayers}}"
@@ -56,7 +57,6 @@
                     </view>
                 </view>
 
-
                 <block
                         wx:for="{{winPlayers}}"
                         wx:key="id"
@@ -66,14 +66,17 @@
                             wx:if="{{item.lastSelected}}"
                             class="detail-box"
                     >
-                        <!-- 内容区域 -->
+                        <!-- 得分计算区域 -->
                         <view class="detail-content">
                             <view class="detail-row">
                                 <view class="detail-row-title">
                                     <text>{{item.username}} </text>
-                                    <text class="detail-title">得分: </text>
-                                    <text>{{basePoints}}</text>
-                                    <text> x </text>
+                                    <text class="detail-title">得分:</text>
+                                    <text style="margin-left: 10rpx">{{basePoints}}</text>
+                                    <text style="margin-left: 10rpx"> x </text>
+                                    <text style="margin-left: 10rpx">{{multi}}</text>
+                                    <text style="margin-left: 10rpx"> = </text>
+                                    <text style="margin-left: 10rpx">{{basePoints * multi}}</text>
                                 </view>
 
                                 <view
@@ -86,7 +89,8 @@
                                 </view>
                             </view>
 
-                            <!-- 标签按钮行 -->
+                            <!-- 底分区域 -->
+                            <text class="section-title">选择底分</text>
                             <view class="button-row">
                                 <view class="tag-group">
                                     <view
@@ -122,14 +126,33 @@
                                 </view>
                             </view>
 
+                            <!-- 牌型选择区块 -->
+                            <view class="section">
+                                <text class="section-title">选择牌型</text>
+                                <view class="tile-group">
+                                    <view
+                                            wx:for="{{winTypes}}"
+                                            wx:key="index"
+                                            class="tile-btn {{item.selected ? 'active' : ''}}"
+                                            bindtap="toggleWinType"
+                                            data-name="{{item.name}}"
+                                            data-multi="{{item.multi}}"
+                                            data-selected="{{item.selected}}"
+                                            hover-class="tile-btn-hover"
+                                    >
+                                        {{item.name}}
+                                    </view>
+                                </view>
+                            </view>
                         </view>
                     </view>
                 </block>
 
 
-                <block wx:if="{{winType !== '自摸'}}">
+                <!-- 选择输家 -->
+                <block wx:if="{{gameType !== '自摸'}}">
                     <view class="section-header">
-                        <text class="section-title">☹️ 选择输家</text>
+                        <text class="section-title-user">☹️ 选择输家</text>
                     </view>
                     <view class="players-grid">
                         <view

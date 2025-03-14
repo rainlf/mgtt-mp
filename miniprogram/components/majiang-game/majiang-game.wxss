@@ -132,14 +132,13 @@
     align-items: center;
     padding: 0 32rpx;
     margin-top: 20rpx;
-    width: 100%;
+    width: 90%;
 }
 
-.section-title {
+.section-title-user {
     font-size: 25rpx;
     color: #333;
     font-weight: 500;
-    margin-left: 20rpx;
 }
 
 .replace-btn {
@@ -356,7 +355,7 @@
 .button-row {
     display: flex;
     justify-content: space-between;
-    margin-top: 30rpx;
+    margin-top: 20rpx;
     gap: 20rpx;
 }
 
@@ -385,7 +384,8 @@
 .tag-btn.active {
     background: cornflowerblue;
     color: white;
-    box-shadow: 0 4rpx 12rpx rgba(239, 68, 68, 0.3);
+    border-color: #90CAF9; /* 浅蓝边框 */
+    box-shadow: 0 4rpx 12rpx rgba(13, 71, 161, 0.15); /* 增强阴影 */
 }
 
 /* 操作按钮组 */
@@ -428,4 +428,48 @@
 
 .minus:active {
     color: #DC2626; /* 减号点击色 */
+}
+
+
+/* 区块标题 */
+.section {
+    margin-top: 20rpx;
+}
+
+.section-title {
+    font-size: 30rpx;
+    color: #64748B;
+    margin-bottom: 24rpx;
+    display: block;
+}
+
+/* 牌型标签容器 */
+.tile-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20rpx;
+}
+
+.tile-btn {
+    background: #F3F4F6;
+    color: #6B7280;
+    border-radius: 12rpx;
+    padding: 16rpx 32rpx;
+    font-size: 28rpx;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    border: 2rpx solid transparent;
+    box-shadow: 0 2rpx 8rpx rgba(33, 150, 243, 0.1); /* 新增基础阴影 */
+    margin-right: 5rpx;
+    margin-bottom: 10rpx;
+}
+
+/* 选中状态 */
+.tile-btn.active {
+    background: cornflowerblue;
+    color: white;
+    border-color: #90CAF9; /* 浅蓝边框 */
+    box-shadow: 0 4rpx 12rpx rgba(13, 71, 161, 0.15); /* 增强阴影 */
 }
