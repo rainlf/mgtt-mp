@@ -8,6 +8,13 @@ export const getMajiangLog = (): Promise<MajiangLog[]> => {
     });
 }
 
+export const getMajiangLogByUser = (userId: number): Promise<MajiangLog[]> => {
+    return request({
+        url: `/majiang/user/games?userId=${userId}`,
+        method: 'GET',
+    });
+}
+
 export const deleteMajiangLog = (gameId: number): Promise<void> => {
     return request({
         url: `/majiang/game?id=${gameId}`,

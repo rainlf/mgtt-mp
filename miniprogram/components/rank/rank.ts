@@ -36,6 +36,21 @@ Component({
             } catch (e) {
                 console.error(e)
             }
-        }
+        },
+        clickUserAvatar(e: any) {
+            const id = e.target.dataset.id;
+            try {
+                // 触发父页面方法（带参数）
+                this.triggerEvent('clickUserAvatar', {
+                    from: 'component',
+                    userId: id,
+                }, {
+                    bubbles: true,  // 是否冒泡
+                    composed: true  // 是否跨越组件边界
+                })
+            } catch (e) {
+                console.error(e)
+            }
+        },
     }
 })

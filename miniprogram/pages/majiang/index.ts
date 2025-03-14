@@ -1,5 +1,5 @@
 import {getUserInfo, getUserRank} from "../../services/user-service";
-import {getMajiangLog} from "../../services/majiang-service";
+import {getMajiangLog, getMajiangLogByUser} from "../../services/majiang-service";
 
 Page({
     data: {
@@ -7,8 +7,12 @@ Page({
         isRefreshing: false,
         rankList: [] as User[],
         gameList: [] as MajiangLog[],
+        userGameList: [] as MajiangLog[],
+        showUserRank: true,
         showGameLog: false,
-        showDrawer: true,
+        showUserGameLog: false,
+        showUserRankBtn: false,
+        showDrawer: false,
     },
     onLoad() {
     },
@@ -51,6 +55,11 @@ Page({
             this.setData({user});
         })
     },
+    fetchUserGameList(userId: number) {
+        getMajiangLogByUser(userId).then(userGameList => {
+            this.setData({userGameList})
+        })
+    },
 
 
     onRefresh() {
@@ -74,17 +83,37 @@ Page({
         this.fetchUserRank()
     },
 
+    // 点击玩家排行按钮
     openUserRank() {
         this.fetchUserRank()
         this.setData({
-            showGameLog: false
+            showUserRank: true,
+            showGameLog: false,
+            showUserGameLog: false,
+            showUserRankBtn: false,
         })
     },
 
+    // 点击游戏记录按钮
     openGameLog() {
         this.fetchGameList()
         this.setData({
-            showGameLog: true
+            showUserRank: false,
+            showGameLog: true,
+            showUserGameLog: false,
+            showUserRankBtn: true
+        })
+    },
+
+    // 子组件点击头像
+    handleClickUserAvatar(e: any) {
+        const userId = e.detail.userId
+        this.fetchUserGameList(userId)
+        this.setData({
+            showUserRank: false,
+            showGameLog: false,
+            showUserGameLog: true,
+            showUserRankBtn: true
         })
     },
 
