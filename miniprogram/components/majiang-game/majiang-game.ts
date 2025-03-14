@@ -1,4 +1,4 @@
-import {getMajiangPlayers} from "../../services/majiang-service";
+import {getMajiangPlayers, saveMaJiangGame} from "../../services/majiang-service";
 
 Component({
     properties: {
@@ -77,7 +77,6 @@ Component({
         // 清空
         handleDelete(e: any) {
             const userId = e.currentTarget.dataset.id;
-            console.log('handleDelete', userId);
             if (this.data.gameType === '多赢家') {
                 // 一炮多响
                 this.setData({
@@ -115,11 +114,9 @@ Component({
         // 底分
         selectBasePoints(e: any) {
             const name = e.currentTarget.dataset.name;
-            const selected = e.currentTarget.dataset.selected;
+            // const selected = e.currentTarget.dataset.selected;
             const point = e.currentTarget.dataset.point;
             const userId = e.currentTarget.dataset.userid;
-            console.log('selectBasePoints', name, selected, point, userId);
-            console.log('selectBasePoints2', e.currentTarget.dataset);
 
             this.setData({
                 points: this.data.points.map((point: any) => {
@@ -140,7 +137,6 @@ Component({
         },
         handleDecrease(e: any) {
             const userId = e.currentTarget.dataset.userid;
-            console.log('handleDecrease', userId);
 
             const user = this.data.winPlayers.filter(x => x.id === userId)[0]
             const target = user.gameInfo.basePoints - 1
@@ -193,7 +189,6 @@ Component({
             const multi = e.currentTarget.dataset.multi;
             const selected = e.currentTarget.dataset.selected;
             const userId = e.currentTarget.dataset.userid;
-            console.log('toggleWinType', name, multi, selected, userId);
 
             this.setData({
                 winTypes: this.data.winTypes.map((type: any) => {
@@ -254,7 +249,10 @@ Component({
             const playerId = e.currentTarget.dataset.id;
             const selected = e.currentTarget.dataset.selected;
             const lastSelected = e.currentTarget.dataset.lastselected;
-            console.log('rain, selectWinPlayer', playerId, selected, lastSelected);
+
+            this.setData({
+                losePlayers: this.data.winPlayers.map((player: User) => ({...player, selected: false}))
+            })
 
             if (this.data.gameType === '多赢家') {
                 // 一炮多响
@@ -327,7 +325,12 @@ Component({
         },
         selectLosePlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
-            // const selected = e.currentTarget.dataset.selected;
+
+            const winIds = this.data.winPlayers.filter((player: User) => player.selected).map((player: User) => player.id)
+            if (winIds.includes(playerId)) {
+                return;
+            }
+
             this.setData({
                 losePlayers: this.data.losePlayers.map((player: User) => {
                     if (player.id === playerId) {
@@ -528,6 +531,9 @@ Component({
                 losers: losers.map((player: User) => player.id),
             }
             console.log('submit', data)
+            saveMaJiangGame(data).then(() => {
+                this.closeDrawer()
+            })
         }
     }
 })

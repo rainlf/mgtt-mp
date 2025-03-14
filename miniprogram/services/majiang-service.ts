@@ -22,3 +22,11 @@ export const getMajiangPlayers = (): Promise<MajiangPlayers> => {
     });
 }
 
+export const saveMaJiangGame = (data: any): Promise<number> => {
+    return request({
+        url: `/majiang/game`,
+        method: 'POST',
+        data,
+    });
+}
+

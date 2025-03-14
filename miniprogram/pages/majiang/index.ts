@@ -18,15 +18,21 @@ Page({
             this.setData({user})
         }
 
+        this.fetchUserInfo()
+        this.fetchGameList()
         this.fetchUserRank()
     },
 
     // 子组件下拉刷新触发
     handleRankListLoad() {
+        this.fetchUserInfo()
+        this.fetchGameList()
         this.fetchUserRank()
     },
     handleGameListLoad() {
+        this.fetchUserInfo()
         this.fetchGameList()
+        this.fetchUserRank()
     },
 
     // 后台获取数据
@@ -38,6 +44,11 @@ Page({
     fetchGameList() {
         getMajiangLog().then(gameList => {
             this.setData({gameList})
+        })
+    },
+    fetchUserInfo() {
+        getUserInfo(this.data.user.id).then(user => {
+            this.setData({user});
         })
     },
 
@@ -58,8 +69,9 @@ Page({
         });
     },
     async loadData() {
-        const user = await getUserInfo(this.data.user.id)
-        this.setData({user});
+        this.fetchUserInfo()
+        this.fetchGameList()
+        this.fetchUserRank()
     },
 
     openUserRank() {
