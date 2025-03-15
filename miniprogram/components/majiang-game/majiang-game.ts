@@ -23,8 +23,6 @@ Component({
             {name: 4, point: 4, selected: false},
             {name: 5, point: 5, selected: false},
             {name: 6, point: 6, selected: false},
-            {name: 7, point: 7, selected: false},
-            {name: 8, point: 8, selected: false},
             {name: '🍒', point: 10, selected: false},
         ],
 
