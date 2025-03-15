@@ -79,7 +79,7 @@ Page({
         }
         console.log('login', this.data.userInfo)
         wx.uploadFile({
-            url: `${getServer()}/user/info`, //仅为示例，非真实的接口地址
+            url: `${getServer()}/user/info`,
             filePath: this.data.userInfo.avatarUrl,
             name: 'avatar',
             formData: {

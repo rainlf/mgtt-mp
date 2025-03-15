@@ -6,11 +6,24 @@ Page({
         intervalId: null as number | null,
         message: '正在检查登录状态...',
     },
-    onLoad() {
+    onShow() {
         // 启动假进度条
         this.startProgressBar()
         // 微信登录
         this.wxLogin()
+    },
+    tap2Login() {
+        const user: User = wx.getStorageSync("user")
+        if (user.username != null && user.username != '' && user.avatar != null) {
+            wx.navigateTo({
+                url: '../majiang/index',
+            })
+        } else {
+            wx.navigateTo({
+                url: '../login/index',
+            })
+        }
+
     },
     startProgressBar() {
         const intervalId = setInterval(() => {
@@ -65,7 +78,7 @@ Page({
                         console.error('error:', err);
                         this.setData({
                             progress: 100,
-                            message: '服务器异常，管理员正在迷路中...',
+                            message: `服务器异常，管理员正在迷路中...`,
                         });
                     })
                     .finally(() => {

@@ -16,11 +16,15 @@ export const serverPro = 'https://mp.guanshantech.com'
 
 export const getServer = () => {
     const accountInfo = wx.getAccountInfoSync();
+    return 'https://mp.guanshantech.com'
+    // return 'http://192.168.31.90:8080'
+    // return 'http://localhost:8080'
     if (accountInfo.miniProgram.envVersion === 'develop') {
         return server
     } else {
         return serverPro
     }
+
     // 根据版本类型返回不同地址
     // switch (accountInfo.miniProgram.envVersion) {
     //     case 'release':  // 正式版

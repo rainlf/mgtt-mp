@@ -2,5 +2,5 @@
     <view class="progress-bar">
         <view class="progress" style="width: {{progress}}%;"></view>
     </view>
-    <view class="loading-text">{{message}}</view>
+    <view class="loading-text" catch:tap="tap2Login">{{message}}</view>
 </view>
