@@ -1,5 +1,7 @@
 # MGTT
-## WeXin
+## Prototype Design
+https://app.mockplus.cn/p/fKd6Aqzn97
+## WeXin Mini Program
 ![0](https://github.com/user-attachments/assets/2d04fb09-a114-49ee-808f-27c88b37945d)
 ![1](https://github.com/user-attachments/assets/67e9d55f-df45-40ed-895a-5ea6cf04780b)
 ![2](https://github.com/user-attachments/assets/16397bc0-3ad8-482e-b6d4-458584db3ac2)
