@@ -24,6 +24,7 @@
                     <majiang-log
                             listData="{{gameList}}"
                             bind:load="handleGameListLoad"
+                            bind:refreshData="refreshData"
                     />
                 </block>
                 <block wx:if="{{showUserGameLog}}">
@@ -45,7 +46,7 @@
             </view>
 
             <view class="game-container">
-                <majiang-game showDrawer="{{showDrawer}}"/>
+                <majiang-game showDrawer="{{showDrawer}}" bind:refreshData="refreshData"/>
             </view>
 
         </view>

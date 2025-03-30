@@ -67,6 +67,18 @@ Component({
                         this.setData({
                             listData: this.data.listData.filter(item => (item.id !== gameId)),
                         })
+
+                        try {
+                            // 触发父页面方法（带参数）
+                            this.triggerEvent('refreshData', {
+                                from: 'component',
+                            }, {
+                                bubbles: true,  // 是否冒泡
+                                composed: true  // 是否跨越组件边界
+                            })
+                        } catch (e) {
+                            console.error(e)
+                        }
                     })
             }
         },

@@ -125,6 +125,13 @@ Page({
         })
     },
 
+    // 刷新分数、排名、记录
+    refreshData() {
+        this.fetchUserInfo()
+        this.fetchUserRank()
+        this.fetchGameList()
+    },
+
     showSaveGameLog() {
         this.setData({
             showDrawer: true
