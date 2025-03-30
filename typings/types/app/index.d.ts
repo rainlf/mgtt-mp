@@ -29,6 +29,7 @@ interface MajiangLog {
     winners: MajiangLogItem[];
     losers: MajiangLogItem[];
     recorder: MajiangLogItem;
+    deleteIcon: string;
 }
 
 interface MajiangLogItem {

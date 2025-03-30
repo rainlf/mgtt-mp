@@ -30,9 +30,10 @@
                         <text class="game-time">{{item.createdTime}}</text>
                         <image
                                 class="delete-btn"
-                                src="/images/delete.png"
+                                src="{{item.deleteIcon}}"
                                 bindtap="showDeleteConfirm"
                                 data-id="{{item.id}}"
+                                data-recorderid="{{item.recorder.user.id}}"
                                 mode="widthFix"
                         />
                     </view>

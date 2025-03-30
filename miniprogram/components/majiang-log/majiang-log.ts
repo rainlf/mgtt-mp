@@ -39,17 +39,22 @@ Component({
 
         // 显示删除确认弹窗
         showDeleteConfirm(e: any) {
-            wx.showModal({
-                title: '删除确认',
-                content: '确定要删除这条对局记录吗？',
-                confirmText: "确定",
-                cancelText: "再想想",
-                success: (res) => {
-                    if (res.confirm) {
-                        this.deleteRecord(e.currentTarget.dataset.id);
+            const user: User = wx.getStorageSync('user')
+            const recorderId = e.currentTarget.dataset.recorderid
+
+            if (user.id === recorderId) {
+                wx.showModal({
+                    title: '删除确认',
+                    content: '确定要删除这条对局记录吗？',
+                    confirmText: "确定",
+                    cancelText: "再想想",
+                    success: (res) => {
+                        if (res.confirm) {
+                            this.deleteRecord(e.currentTarget.dataset.id);
+                        }
                     }
-                }
-            });
+                });
+            }
         },
 
         // 执行删除操作

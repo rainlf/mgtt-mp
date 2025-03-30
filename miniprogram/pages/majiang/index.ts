@@ -46,7 +46,15 @@ Page({
         })
     },
     fetchGameList() {
-        getMajiangLog().then(gameList => {
+        getMajiangLog().then(data => {
+            const user: User = wx.getStorageSync("user")
+            const gameList = data.map(item => {
+                if (item.recorder.user.id === user.id) {
+                    return {...item, deleteIcon: '/images/delete.png'}
+                } else {
+                    return {...item, deleteIcon: '/images/delete2.png'}
+                }
+            })
             this.setData({gameList})
         })
     },
