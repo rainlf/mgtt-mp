@@ -55,13 +55,15 @@ Component({
         // 执行删除操作
         deleteRecord(gameId: number) {
             if (!gameId) return;
-
-            deleteMajiangLog(gameId)
-                .then(() => {
-                    this.setData({
-                        listData: this.data.listData.filter(item => (item.id !== gameId)),
+            const user: User = wx.getStorageSync('user')
+            if (user) {
+                deleteMajiangLog(gameId, user.id)
+                    .then(() => {
+                        this.setData({
+                            listData: this.data.listData.filter(item => (item.id !== gameId)),
+                        })
                     })
-                })
+            }
         },
     }
 })
