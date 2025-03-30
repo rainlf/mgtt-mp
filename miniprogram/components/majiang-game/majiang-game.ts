@@ -18,11 +18,11 @@ Component({
 
         // 底分
         points: [
-            {name: 2, point: 2, selected: false},
             {name: 3, point: 3, selected: false},
             {name: 4, point: 4, selected: false},
             {name: 5, point: 5, selected: false},
             {name: 6, point: 6, selected: false},
+            {name: 7, point: 7, selected: false},
             {name: '🍒', point: 10, selected: false},
         ],
 
@@ -32,8 +32,8 @@ Component({
             {name: '大吊车', multi: 2, selected: false},
             {name: '碰碰胡', multi: 2, selected: false},
             {name: '门前清', multi: 2, selected: false},
-            {name: '混一色', multi: 2, selected: false},
-            {name: '清一色', multi: 4, selected: false},
+            {name: '混一色', multi: 4, selected: false},
+            {name: '清一色', multi: 8, selected: false},
             {name: '小七对', multi: 2, selected: false},
             {name: '龙七对', multi: 4, selected: false},
             {name: '杠开花', multi: 2, selected: false},
@@ -47,26 +47,44 @@ Component({
         }
     },
     methods: {
-        // load data
+        // 数据初始化
         loadData() {
             getMajiangPlayers().then((res) => {
-                const currentIds = res.currentPlayers.map((player: User) => (player.id))
+                // 场上玩家
+                const currentPlayers = res.currentPlayers
+
+                // 场上玩家ids
+                const currentIds = currentPlayers.map((player: User) => (player.id))
+
+                // 赢家
+                const winPlayers = currentPlayers.map((player: User, index: number) => ({
+                    ...player,
+                    selected: index === 0,
+                    lastSelected: index === 0,
+                    gameInfo: {basePoints: 0, winTypes: [], multi: 1},
+                }))
+                const selectedWinPlayerId = winPlayers.filter(x => x.selected)[0].id
+
+                // 输家
+                const losePlayers = currentPlayers.filter(x => x.id !== selectedWinPlayerId).map((player: User) => ({
+                    ...player,
+                    selected: false
+                }))
+
+                // 全部玩家
+                const allPlayers = res.allPlayers
+                    .map((player: User) => {
+                        if (currentIds.includes(player.id)) {
+                            return {...player, selected: true}
+                        } else {
+                            return {...player, selected: false}
+                        }
+                    })
+
                 this.setData({
-                    winPlayers: res.currentPlayers.map((player: User, index: number) => ({
-                        ...player,
-                        selected: index === 0,
-                        lastSelected: index === 0,
-                        gameInfo: {basePoints: 0, winTypes: [], multi: 1},
-                    })),
-                    losePlayers: res.currentPlayers.map((player: User) => ({...player, selected: false})),
-                    allPlayers: res.allPlayers
-                        .map((player: User) => {
-                            if (currentIds.includes(player.id)) {
-                                return {...player, selected: true}
-                            } else {
-                                return {...player, selected: false}
-                            }
-                        }),
+                    winPlayers,
+                    losePlayers,
+                    allPlayers,
                     selectUserToPlayList: currentIds,
                 })
             })
@@ -249,7 +267,10 @@ Component({
             const lastSelected = e.currentTarget.dataset.lastselected;
 
             this.setData({
-                losePlayers: this.data.winPlayers.map((player: User) => ({...player, selected: false}))
+                losePlayers: this.data.winPlayers.filter(x => x.id !== playerId).map((player: User) => ({
+                    ...player,
+                    selected: false
+                }))
             })
 
             if (this.data.gameType === '多赢家') {
