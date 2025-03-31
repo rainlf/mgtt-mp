@@ -152,6 +152,16 @@
     margin: 2rpx;
 }
 
+.tag2 {
+    background: #e8f3ff;
+    color: orangered;
+    font-size: 24rpx;
+    padding: 6rpx 20rpx;
+    border-radius: 40rpx;
+    line-height: 1.4;
+    margin: 2rpx;
+}
+
 /* 得分样式 */
 .score-box {
     text-align: right;
