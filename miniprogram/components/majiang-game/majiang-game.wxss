@@ -173,6 +173,25 @@
     margin: 5rpx;
 }
 
+.player-card.active {
+    background: #e3f2fd;
+    box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.15);
+}
+
+.player-card.last-active {
+    border: 2rpx solid mediumpurple; /* 紫色边框 */
+    box-shadow: 0 2rpx 8rpx rgba(156, 39, 176, 0.2); /* 可选浅紫色投影 */
+    transform: translateY(-2rpx); /* 可选悬浮效果 */
+    transition: all 0.2s; /* 保持与默认卡片的过渡动画一致 */
+}
+
+.detail-box.last-active {
+    border: 2rpx solid mediumpurple; /* 紫色边框 */
+    box-shadow: 0 2rpx 8rpx rgba(156, 39, 176, 0.2); /* 可选浅紫色投影 */
+    transform: translateY(-2rpx); /* 可选悬浮效果 */
+    transition: all 0.2s; /* 保持与默认卡片的过渡动画一致 */
+}
+
 .all-players-grid {
     /*width: 100%;*/
     display: flex;
@@ -197,10 +216,7 @@
     box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
 }
 
-.player-card.active {
-    background: #e3f2fd;
-    box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.15);
-}
+
 
 .player-avatar {
     width: 96rpx;

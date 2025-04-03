@@ -8,7 +8,7 @@ Component({
         }
     },
     data: {
-        gameType: '平胡', // 默认选中平胡
+        gameType: '胡牌', // 默认选中胡牌
         allPlayers: [] as User[],
         winPlayers: [] as User[],
         losePlayers: [] as User[],
@@ -90,41 +90,24 @@ Component({
             })
         },
 
-        // 清空
+        // 清空按钮
         handleDelete(e: any) {
+            // 当前选中的用户id
             const userId = e.currentTarget.dataset.id;
-            if (this.data.gameType === '多赢家') {
-                // 一炮多响
-                this.setData({
-                    winPlayers: this.data.winPlayers.map((player: User) => {
-                        if (player.id === userId) {
-                            return {...player, selected: false, gameInfo: {basePoints: 0, winTypes: [], multi: 1}};
-                        } else {
-                            return player
-                        }
-                    }),
-                    // 底分全部反选
-                    points: this.data.points.map((point: any) => ({...point, selected: false})),
-                    // 牌型全部反选
-                    winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
-                })
-            } else {
-                // 平胡，自摸
-                this.setData({
-                    winPlayers: this.data.winPlayers.map((player: User) => {
-                        if (player.id === userId) {
-                            return {...player, gameInfo: {basePoints: 0, winTypes: [], multi: 1}};
-                        } else {
-                            return player
-                        }
-                    }),
-                    // 底分全部反选
-                    points: this.data.points.map((point: any) => ({...point, selected: false})),
-                    // 牌型全部反选
-                    winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
-                })
-            }
+            // 选中用户，清空积分
+            const winPlayers = this.data.winPlayers.map((player: User) => player.id === userId ? {
+                ...player,
+                gameInfo: {basePoints: 0, winTypes: [], multi: 1}
+            } : player)
+            // 底分和牌型重置
+            const points = this.data.points.map((point: any) => ({...point, selected: false}))
+            const winTypes = this.data.winTypes.map((winType: any) => ({...winType, selected: false}))
 
+            this.setData({
+                winPlayers,
+                points,
+                winTypes,
+            })
         },
 
         // 底分
@@ -266,15 +249,9 @@ Component({
             const selected = e.currentTarget.dataset.selected;
             const lastSelected = e.currentTarget.dataset.lastselected;
 
-            this.setData({
-                losePlayers: this.data.winPlayers.filter(x => x.id !== playerId).map((player: User) => ({
-                    ...player,
-                    selected: false
-                }))
-            })
-
-            if (this.data.gameType === '多赢家') {
-                // 一炮多响
+            // 胡牌场景
+            if (this.data.gameType === '胡牌') {
+                // 点击检测，最多3个玩家赢牌
                 let count = 0
                 this.data.winPlayers.forEach((player: User) => {
                     if (player.selected) {
@@ -289,58 +266,103 @@ Component({
                     })
                     return;
                 }
-                this.setData({
-                    winPlayers: this.data.winPlayers.map((player: User) => {
-                        if (player.id === playerId) {
-                            return {...player, selected: true, lastSelected: true}
-                        } else {
-                            return {...player, lastSelected: false};
-                        }
-                    }),
 
-                })
+                // 用 selected 来标记是否选中，用 lastSelected 来标记是否当前选中
+                // 点击未选中玩家时，lastSelected 为 false
+                // 点击已选中玩家时，lastSelected 为 true
+                if (selected && lastSelected) {
+                    // 玩家从当前选中状态再次被点击
+                    this.setData({
+                        // 当前选中的玩家，lastSelected 改为 false，其他玩家改为 false
+                        winPlayers: this.data.winPlayers.map((player: User) => player.id === playerId ? {
+                            ...player,
+                            selected: false,
+                            lastSelected: false
+                        } : {...player, lastSelected: false})
+                    })
+                    let firstSelectId = -1
+                    this.data.winPlayers.forEach((player: User) => {
+                        if (firstSelectId === -1 && player.selected) {
+                            firstSelectId = player.id;
+                        }
+                    })
+                    if (firstSelectId != -1) {
+                        this.setData({
+                            winPlayers: this.data.winPlayers.map((player: User) => player.id === firstSelectId ? {
+                                ...player,
+                                lastSelected: true
+                            } : player)
+                        })
+                    }
+                } else {
+                    // 玩家从非选中状态被点击
+                    this.setData({
+                        // 当前选中的玩家，lastSelected 改为 true，其他玩家改为 false
+                        winPlayers: this.data.winPlayers.map((player: User) => player.id === playerId ? {
+                            ...player,
+                            selected: true,
+                            lastSelected: true
+                        } : {...player, lastSelected: false})
+                    })
+                }
+
+                // 玩家从非当前选中到当前选中状态
                 if (!lastSelected) {
+                    // 拿到当前选中的玩家记分信息
                     const user = this.data.winPlayers.filter(x => x.id === playerId)[0]
                     const targetPoints = user.gameInfo.basePoints
                     const targetWinTypes = user.gameInfo.winTypes
+                    // 渲染至当前记分面板
                     this.setData({
-                        // 底分全部反选
                         points: this.data.points.map((point: any) => ({
                             ...point,
                             selected: point.point === targetPoints
                         })),
-                        // 牌型全部反选
                         winTypes: this.data.winTypes.map((winType: any) => ({
                             ...winType,
                             selected: targetWinTypes.includes(winType.name)
                         })),
                     })
                 }
-            } else {
-                // 平胡，自摸
+            }
+
+            // 自摸
+            if (this.data.gameType === '自摸') {
                 this.setData({
-                    winPlayers: this.data.winPlayers.map((player: User) => {
-                        if (player.id === playerId) {
-                            return {...player, selected: true, lastSelected: true}
-                        } else {
-                            // 反选其他，并清空分数配置
-                            return {
-                                ...player,
-                                selected: false,
-                                lastSelected: false,
-                                gameInfo: {basePoints: 0, winTypes: [], multi: 1}
-                            }
+                    // 清楚非选中玩家的选中状态和记分信息
+                    winPlayers: this.data.winPlayers.map((player: User) => player.id === playerId ? {
+                            ...player,
+                            selected: true,
+                            lastSelected: true
+                        } : {
+                            ...player,
+                            selected: false,
+                            lastSelected: false,
+                            gameInfo: {basePoints: 0, winTypes: [], multi: 1}
                         }
-                    }),
+                    ),
                 })
+                // 玩家从非当前选中到当前选中状态，记分状态重置
                 if (!lastSelected) {
                     this.setData({
                         points: this.data.points.map((point: any) => ({...point, selected: false})),
-                        // 牌型全部反选
                         winTypes: this.data.winTypes.map((winType: any) => ({...winType, selected: false})),
                     })
                 }
             }
+
+            // 输家从赢家外的玩家选
+            const selectedPlayerId: number[] = this.data.winPlayers
+                .filter((player: User) => player.selected)
+                .map((player: User) => player.id)
+            this.setData({
+                losePlayers: this.data.winPlayers
+                    .filter(x => !selectedPlayerId.includes(x.id))
+                    .map((player: User) => ({
+                        ...player,
+                        selected: false
+                    }))
+            })
         },
         selectLosePlayer(e: any) {
             const playerId = e.currentTarget.dataset.id;
@@ -459,36 +481,7 @@ Component({
                 return;
             }
 
-            if (this.data.gameType === '平胡') {
-                if (winners.length != 1) {
-                    wx.showToast({
-                        title: '请选择一个赢家 🥕',
-                        icon: 'none',
-                        duration: 1000
-                    })
-                    return;
-                }
-                if (losers.length != 1) {
-                    wx.showToast({
-                        title: '请选择一个输家 🍌',
-                        icon: 'none',
-                        duration: 1000
-                    })
-                    return;
-                }
-            } else if (this.data.gameType === '自摸') {
-                if (winners.length != 1) {
-                    wx.showToast({
-                        title: '请选择一个赢家 🥕',
-                        icon: 'none',
-                        duration: 1000
-                    })
-                    return;
-                }
-                losers = this.data.losePlayers.filter((player: User) => {
-                    return player.id !== winners[0].id
-                })
-            } else if (this.data.gameType === '多赢家') {
+            if (this.data.gameType === '胡牌') {
                 if (winners.length < 1) {
                     wx.showToast({
                         title: '请至少选择一个赢家 🥕',
@@ -506,35 +499,64 @@ Component({
                     return;
                 }
             }
+            if (this.data.gameType === '自摸') {
+                if (winners.length != 1) {
+                    wx.showToast({
+                        title: '请选择一个赢家 🥕',
+                        icon: 'none',
+                        duration: 1000
+                    })
+                    return;
+                }
+                losers = this.data.losePlayers.filter((player: User) => {
+                    return player.id !== winners[0].id
+                })
+                console.log('rain losers: ', losers)
+            }
+            if (this.data.gameType === '相公') {
 
+
+            }
 
             let gameType = 1
-            if (this.data.gameType === '平胡') {
-                gameType = 1
-            } else if (this.data.gameType === '自摸') {
-                gameType = 2
-            } else if (this.data.gameType === '多赢家') {
-                if (winners.length === 2) {
+            if (this.data.gameType === '胡牌') {
+                if (winners.length === 1) {
+                    // 平胡
+                    gameType = 1
+                } else if (winners.length === 2) {
                     // 一炮双响
                     gameType = 3
                 } else if (winners.length === 3) {
                     // 一炮三响
                     gameType = 4
                 }
+            } else if (this.data.gameType === '自摸') {
+                gameType = 2
+            } else if (this.data.gameType === '相公') {
+
             }
 
-            this.submit(gameType, winners, losers)
-            // wx.showModal({
-            //     title: '提交确认',
-            //     content: '确定要提交这次对局记录吗？',
-            //     confirmText: "确定",
-            //     cancelText: "记错了",
-            //     success: (res) => {
-            //         if (res.confirm) {
-            //             this.submit(gameType, winners, losers)
-            //         }
-            //     }
-            // });
+            let message = ''
+            winners.forEach((player: User) => {
+                message += `赢家：${player.username}, 得分: ${player.gameInfo.basePoints * player.gameInfo.multi} 分\n`
+            })
+            message += `输家: `
+            losers.forEach((player: User) => {
+                message += `${player.username}, `
+            })
+            message = message.replace(/..$/, '');
+
+            wx.showModal({
+                title: '提交确认',
+                content: message,
+                confirmText: "确定",
+                cancelText: "记错了",
+                success: (res) => {
+                    if (res.confirm) {
+                        this.submit(gameType, winners, losers)
+                    }
+                }
+            });
         },
 
         submit(gameType: number, winners: User[], losers: User[]) {

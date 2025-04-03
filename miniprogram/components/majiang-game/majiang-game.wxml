@@ -11,11 +11,11 @@
                 <text class="selector-label">胡牌：</text>
                 <view class="type-buttons">
                     <view
-                            class="type-btn {{gameType === '平胡' ? 'active' : ''}}"
+                            class="type-btn {{gameType === '胡牌' ? 'active' : ''}}"
                             bindtap="selectWinType"
-                            data-type="平胡"
+                            data-type="胡牌"
                     >
-                        平胡
+                        胡牌
                     </view>
                     <view
                             class="type-btn {{gameType === '自摸' ? 'active' : ''}}"
@@ -24,13 +24,13 @@
                     >
                         自摸
                     </view>
-                    <view
-                            class="type-btn {{gameType === '多赢家' ? 'active' : ''}}"
-                            bindtap="selectWinType"
-                            data-type="多赢家"
-                    >
-                        多赢家
-                    </view>
+<!--                    <view-->
+<!--                            class="type-btn {{gameType === '相公' ? 'active' : ''}}"-->
+<!--                            bindtap="selectWinType"-->
+<!--                            data-type="相公"-->
+<!--                    >-->
+<!--                        相公-->
+<!--                    </view>-->
                 </view>
             </view>
             <!-- 第一部分：标题+换人按钮 -->
@@ -47,7 +47,7 @@
                     <view
                             wx:for="{{winPlayers}}"
                             wx:key="id"
-                            class="player-card {{item.selected ? 'active' : ''}}"
+                            class="player-card {{item.selected ? 'active' : ''}} {{item.lastSelected ? 'last-active' : ''}}"
                             bindtap="selectWinPlayer"
                             data-id="{{item.id}}"
                             data-selected="{{item.selected}}"
@@ -64,9 +64,8 @@
                         wx:for-item="user"
                 >
                     <view
-
                             wx:if="{{user.lastSelected}}"
-                            class="detail-box"
+                            class="detail-box last-active"
                     >
                         <!-- 得分计算区域 -->
                         <view class="detail-content">
@@ -156,7 +155,8 @@
 
 
                 <!-- 选择输家 -->
-                <block wx:if="{{gameType !== '自摸'}}">
+                <block wx:if="{{gameType === '胡牌'}}">
+                    <!-- 胡牌 -->
                     <view class="section-header">
                         <text class="section-title-user">☹️ 选择输家</text>
                     </view>
@@ -164,7 +164,7 @@
                         <view
                                 wx:for="{{losePlayers}}"
                                 wx:key="id"
-                                class="player-card {{item.selected ? 'active' : ''}}"
+                                class="player-card {{item.selected ? 'active' : ''}} {{item.selected ? 'last-active' : ''}}"
                                 bindtap="selectLosePlayer"
                                 data-id="{{item.id}}"
                                 data-selected="{{item.selected}}"
@@ -175,13 +175,14 @@
                     </view>
                 </block>
             </block>
-            <block wx:else>
+            <block wx:elif="{{gameType === '自摸'}}">
+                <!-- 自摸 -->
                 <scroll-view scroll-y class="scroll-view-container">
                     <view class="all-players-grid">
                         <view
                                 wx:for="{{allPlayers}}"
                                 wx:key="id"
-                                class="all-player-card {{ item.selected ? 'active' : ''}}"
+                                class="all-player-card {{ item.selected ? 'active' : ''}} {{ item.selected ? 'last-active' : ''}}"
                                 bindtap="selectPlayerToPlay"
                                 data-id="{{item.id}}"
                                 data-selected="{{item.selected}}"
@@ -191,6 +192,9 @@
                         </view>
                     </view>
                 </scroll-view>
+            </block>
+            <block wx:else>
+                <!-- 相公 -->
             </block>
 
         </view>
