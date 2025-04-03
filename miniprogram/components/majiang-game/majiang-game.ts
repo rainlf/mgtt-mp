@@ -32,10 +32,10 @@ Component({
             {name: '大吊车', multi: 2, selected: false},
             {name: '碰碰胡', multi: 2, selected: false},
             {name: '门前清', multi: 2, selected: false},
-            {name: '混一色', multi: 4, selected: false},
-            {name: '清一色', multi: 8, selected: false},
-            {name: '小七对', multi: 2, selected: false},
-            {name: '龙七对', multi: 4, selected: false},
+            {name: '混一色', multi: 2, selected: false},
+            {name: '清一色', multi: 4, selected: false},
+            {name: '小七对', multi: 4, selected: false},
+            {name: '龙七对', multi: 8, selected: false},
             {name: '杠开花', multi: 2, selected: false},
         ],
     },
@@ -545,6 +545,7 @@ Component({
                 message += `${player.username}, `
             })
             message = message.replace(/..$/, '');
+            message += ``
 
             wx.showModal({
                 title: '提交确认',

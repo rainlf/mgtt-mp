@@ -15,6 +15,7 @@ export const server = 'http://localhost:8080'
 export const serverPro = 'https://mp.guanshantech.com'
 
 export const getServer = () => {
+    // return serverPro
     const accountInfo = wx.getAccountInfoSync();
     if (accountInfo.miniProgram.envVersion === 'develop') {
         return server
