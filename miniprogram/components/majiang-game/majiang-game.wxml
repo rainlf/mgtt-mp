@@ -24,13 +24,13 @@
                     >
                         自摸
                     </view>
-<!--                    <view-->
-<!--                            class="type-btn {{gameType === '相公' ? 'active' : ''}}"-->
-<!--                            bindtap="selectWinType"-->
-<!--                            data-type="相公"-->
-<!--                    >-->
-<!--                        相公-->
-<!--                    </view>-->
+                    <!--                    <view-->
+                    <!--                            class="type-btn {{gameType === '相公' ? 'active' : ''}}"-->
+                    <!--                            bindtap="selectWinType"-->
+                    <!--                            data-type="相公"-->
+                    <!--                    >-->
+                    <!--                        相公-->
+                    <!--                    </view>-->
                 </view>
             </view>
             <!-- 第一部分：标题+换人按钮 -->
@@ -42,7 +42,7 @@
 
             <!-- 第二部分：玩家列表 -->
             <block wx:if="{{!changingPlayers}}">
-                <!-- 选择赢家 -->
+                <!-- 赢家列表 -->
                 <view class="players-grid">
                     <view
                             wx:for="{{winPlayers}}"
@@ -57,7 +57,7 @@
                         <text class="player-name">{{item.username}}</text>
                     </view>
                 </view>
-
+                <!-- 记分区域 -->
                 <block
                         wx:for="{{winPlayers}}"
                         wx:key="id"
@@ -74,9 +74,9 @@
                                     <text>{{user.username}} </text>
                                     <text class="detail-title">得分:</text>
                                     <text style="margin-left: 10rpx">{{user.gameInfo.basePoints}}</text>
-                                    <text style="margin-left: 10rpx"> x </text>
+                                    <text style="margin-left: 10rpx"> x</text>
                                     <text style="margin-left: 10rpx">{{user.gameInfo.multi}}</text>
-                                    <text style="margin-left: 10rpx"> = </text>
+                                    <text style="margin-left: 10rpx"> =</text>
                                     <text style="margin-left: 10rpx">{{user.gameInfo.basePoints * user.gameInfo.multi}}</text>
                                 </view>
 
@@ -152,11 +152,8 @@
                         </view>
                     </view>
                 </block>
-
-
-                <!-- 选择输家 -->
+                <!-- 输家列表 -->
                 <block wx:if="{{gameType === '胡牌'}}">
-                    <!-- 胡牌 -->
                     <view class="section-header">
                         <text class="section-title-user">☹️ 选择输家</text>
                     </view>
@@ -175,8 +172,7 @@
                     </view>
                 </block>
             </block>
-            <block wx:elif="{{gameType === '自摸'}}">
-                <!-- 自摸 -->
+            <block wx:else>
                 <scroll-view scroll-y class="scroll-view-container">
                     <view class="all-players-grid">
                         <view
@@ -192,9 +188,6 @@
                         </view>
                     </view>
                 </scroll-view>
-            </block>
-            <block wx:else>
-                <!-- 相公 -->
             </block>
 
         </view>
