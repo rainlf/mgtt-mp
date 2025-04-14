@@ -17,19 +17,19 @@
                 </view>
                 <view wx:elif="{{index === 1}}">
                     <view class="rank-king-box">
-                        <image class="rank-king" src="/images/king5.png" mode="aspectFill"/>
+                        <image class="rank-king" src="/images/king2.png" mode="aspectFill"/>
                     </view>
                 </view>
                 <view wx:elif="{{index === 2}}">
                     <view class="rank-king-box">
-                        <image class="rank-king" src="/images/king4.png" mode="aspectFill"/>
+                        <image class="rank-king" src="/images/king3.png" mode="aspectFill"/>
                     </view>
                 </view>
-                <view wx:elif="{{index === 3}}">
-                    <view class="rank-king-box">
-                        <image class="rank-king" src="/images/ranking-3.png" mode="aspectFill"/>
-                    </view>
-                </view>
+<!--                <view wx:elif="{{index === 3}}">-->
+<!--                    <view class="rank-king-box">-->
+<!--                        <image class="rank-king" src="/images/ranking-3.png" mode="aspectFill"/>-->
+<!--                    </view>-->
+<!--                </view>-->
                 <view wx:else>
                     <view class="rank-box">
                         <text class="rank-text">{{index}}</text>

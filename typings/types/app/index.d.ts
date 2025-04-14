@@ -30,6 +30,8 @@ interface MajiangLog {
     losers: MajiangLogItem[];
     recorder: MajiangLogItem;
     deleteIcon: string;
+    forOnePlayer: boolean;
+    playerWin: boolean;
 }
 
 interface MajiangLogItem {

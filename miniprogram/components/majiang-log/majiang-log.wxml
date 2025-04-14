@@ -11,12 +11,23 @@
                 <!-- 对局信息头部 -->
                 <view class="record-header">
                     <view class="record-header-left">
-                        <block wx:if="{{item.type === '自摸'}}">
-                            <text class="win-type2">{{item.type}}</text>
+                        <block wx:if="{{item.forOnePlayer}}">
+                            <block wx:if="{{item.playerWin}}">
+                                <text class="win-type2">{{'赢😋'}}</text>
+                            </block>
+                            <block wx:else>
+                                <text class="win-type">{{'输😭'}}</text>
+                            </block>
                         </block>
                         <block wx:else>
-                            <text class="win-type">{{item.type}}</text>
+                            <block wx:if="{{item.type === '自摸'}}">
+                                <text class="win-type2">{{item.type}}</text>
+                            </block>
+                            <block wx:else>
+                                <text class="win-type">{{item.type}}</text>
+                            </block>
                         </block>
+
 
                         <view class="player-avatars">
                             <image class="avatar-small" src="{{item.player1.avatar}}"/>
