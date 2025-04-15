@@ -574,6 +574,11 @@ Component({
             }
             saveMaJiangGame(data).then(() => {
                 this.closeDrawer()
+                wx.showToast({
+                    title: '提交成功',
+                    icon: 'success',
+                    duration: 1500
+                })
                 try {
                     // 触发父页面方法（带参数）
                     this.triggerEvent('refreshData', {
