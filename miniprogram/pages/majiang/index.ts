@@ -24,20 +24,20 @@ Page({
         }
 
         this.fetchUserInfo()
-        this.fetchGameList()
+        // this.fetchGameList()
         this.fetchUserRank()
     },
 
     // 子组件下拉刷新触发
     handleRankListLoad() {
         this.fetchUserInfo()
-        this.fetchGameList()
+        // this.fetchGameList()
         this.fetchUserRank()
     },
     handleGameListLoad() {
         this.fetchUserInfo()
         this.fetchGameList()
-        this.fetchUserRank()
+        // this.fetchUserRank()
     },
 
     // 后台获取数据
@@ -138,14 +138,16 @@ Page({
             });
         });
     },
+
     async loadData() {
         this.fetchUserInfo()
-        this.fetchGameList()
+        // this.fetchGameList()
         this.fetchUserRank()
     },
 
     // 点击玩家排行按钮
     openUserRank() {
+        this.fetchUserInfo()
         this.fetchUserRank()
         this.setData({
             showUserRank: true,
@@ -157,6 +159,7 @@ Page({
 
     // 点击游戏记录按钮
     openGameLog() {
+        this.fetchUserInfo()
         this.fetchGameList()
         this.setData({
             showUserRank: false,
