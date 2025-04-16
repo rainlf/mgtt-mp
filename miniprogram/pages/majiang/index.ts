@@ -1,5 +1,6 @@
 import {getUserInfo, getUserRank} from "../../services/user-service";
 import {getMajiangLog, getMajiangLogByUser} from "../../services/majiang-service";
+import {updateAvatarFromCache} from "../../utils/util";
 
 Page({
     data: {
@@ -43,16 +44,50 @@ Page({
     fetchUserRank() {
         getUserRank().then(rankList => {
             this.setData({rankList})
+            // 本地头像缓存
+            const avatars = rankList.map((item) => ({id: item.id, avatar: item.avatar}))
+            wx.setStorageSync('avatars', avatars)
         })
     },
     fetchGameList() {
         getMajiangLog().then(data => {
             const user: User = wx.getStorageSync("user")
+            const avatars = wx.getStorageSync('avatars')
             const gameList = data.map(item => {
                 if (item.recorder.user.id === user.id) {
-                    return {...item, deleteIcon: '/images/delete.png'}
+                    return {
+                        ...item,
+                        deleteIcon: '/images/delete.png',
+                        player1: {...item.player1, avatar: updateAvatarFromCache(item.player1.id, avatars)},
+                        player2: {...item.player2, avatar: updateAvatarFromCache(item.player2.id, avatars)},
+                        player3: {...item.player3, avatar: updateAvatarFromCache(item.player3.id, avatars)},
+                        player4: {...item.player4, avatar: updateAvatarFromCache(item.player4.id, avatars)},
+                        losers: item.losers.map(loser => ({
+                            ...loser,
+                            user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
+                        })),
+                        winners: item.losers.map(winner => ({
+                            ...winner,
+                            user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
+                        }))
+                    }
                 } else {
-                    return {...item, deleteIcon: '/images/delete2.png'}
+                    return {
+                        ...item,
+                        deleteIcon: '/images/delete2.png',
+                        player1: {...item.player1, avatar: updateAvatarFromCache(item.player1.id, avatars)},
+                        player2: {...item.player2, avatar: updateAvatarFromCache(item.player2.id, avatars)},
+                        player3: {...item.player3, avatar: updateAvatarFromCache(item.player3.id, avatars)},
+                        player4: {...item.player4, avatar: updateAvatarFromCache(item.player4.id, avatars)},
+                        losers: item.losers.map(loser => ({
+                            ...loser,
+                            user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
+                        })),
+                        winners: item.losers.map(winner => ({
+                            ...winner,
+                            user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
+                        }))
+                    }
                 }
             })
             this.setData({gameList})
@@ -64,7 +99,25 @@ Page({
         })
     },
     fetchUserGameList(userId: number) {
-        getMajiangLogByUser(userId).then(userGameList => {
+        const avatars = wx.getStorageSync('avatars')
+        getMajiangLogByUser(userId).then(data => {
+            const userGameList =  data.map(item => {
+                return {
+                    ...item,
+                    player1: {...item.player1, avatar: updateAvatarFromCache(item.player1.id, avatars)},
+                    player2: {...item.player2, avatar: updateAvatarFromCache(item.player2.id, avatars)},
+                    player3: {...item.player3, avatar: updateAvatarFromCache(item.player3.id, avatars)},
+                    player4: {...item.player4, avatar: updateAvatarFromCache(item.player4.id, avatars)},
+                    losers: item.losers.map(loser => ({
+                        ...loser,
+                        user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
+                    })),
+                    winners: item.losers.map(winner => ({
+                        ...winner,
+                        user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
+                    }))
+                }
+            })
             this.setData({userGameList})
         })
     },
