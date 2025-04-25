@@ -32,7 +32,7 @@
 <!--                </view>-->
                 <view wx:else>
                     <view class="rank-box">
-                        <text class="rank-text">{{index}}</text>
+                        <text class="rank-text">{{index + 1}}</text>
                     </view>
                 </view>
 
