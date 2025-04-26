@@ -53,6 +53,7 @@ Page({
         getMajiangLog().then(data => {
             const user: User = wx.getStorageSync("user")
             const avatars = wx.getStorageSync('avatars')
+            console.log('rain1', data)
             const gameList = data.map(item => {
                 if (item.recorder.user.id === user.id) {
                     return {
@@ -66,7 +67,7 @@ Page({
                             ...loser,
                             user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
                         })),
-                        winners: item.losers.map(winner => ({
+                        winners: item.winners.map(winner => ({
                             ...winner,
                             user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
                         }))
@@ -83,13 +84,14 @@ Page({
                             ...loser,
                             user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
                         })),
-                        winners: item.losers.map(winner => ({
+                        winners: item.winners.map(winner => ({
                             ...winner,
                             user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
                         }))
                     }
                 }
             })
+            console.log('rain', gameList)
             this.setData({gameList})
         })
     },
@@ -112,7 +114,7 @@ Page({
                         ...loser,
                         user: {...loser.user, avatar: updateAvatarFromCache(loser.user.id, avatars)},
                     })),
-                    winners: item.losers.map(winner => ({
+                    winners: item.winners.map(winner => ({
                         ...winner,
                         user: {...winner.user, avatar: updateAvatarFromCache(winner.user.id, avatars)},
                     }))

@@ -327,9 +327,9 @@ Component({
             }
 
             // 自摸
-            if (this.data.gameType === '自摸') {
+            if (this.data.gameType === '自摸' || this.data.gameType === '相公') {
                 this.setData({
-                    // 清楚非选中玩家的选中状态和记分信息
+                    // 清除非选中玩家的选中状态和记分信息
                     winPlayers: this.data.winPlayers.map((player: User) => player.id === playerId ? {
                             ...player,
                             selected: true,
@@ -459,12 +459,28 @@ Component({
         },
 
         showSubmit() {
-            let winners = this.data.winPlayers.filter((player: User) => {
-                return player.selected
-            })
-            let losers = this.data.losePlayers.filter((player: User) => {
-                return player.selected
-            })
+            // 胡牌，自摸
+            let winners: User[] = []
+            let losers: User[] = []
+            if (this.data.gameType === '胡牌' || this.data.gameType === '自摸') {
+                winners = this.data.winPlayers.filter((player: User) => {
+                    return player.selected
+                })
+                losers = this.data.losePlayers.filter((player: User) => {
+                    return player.selected
+                })
+            }
+            if (this.data.gameType === '相公') {
+                winners = this.data.winPlayers.filter((player: User) => {
+                    return !player.selected
+                })
+                losers = this.data.winPlayers.filter((player: User) => {
+                    return player.selected
+                })
+                winners.forEach((player: User) => {player.gameInfo.basePoints = 1})
+                losers.forEach((player: User) => {player.gameInfo.basePoints = 3})
+            }
+
 
             let exit = false
             winners.forEach((player: User) => {
@@ -511,11 +527,16 @@ Component({
                 losers = this.data.losePlayers.filter((player: User) => {
                     return player.id !== winners[0].id
                 })
-                console.log('rain losers: ', losers)
             }
             if (this.data.gameType === '相公') {
-
-
+                if (losers.length != 1) {
+                    wx.showToast({
+                        title: '是谁相公了呀 🦆',
+                        icon: 'none',
+                        duration: 1000
+                    })
+                    return;
+                }
             }
 
             let gameType = 1
@@ -533,7 +554,7 @@ Component({
             } else if (this.data.gameType === '自摸') {
                 gameType = 2
             } else if (this.data.gameType === '相公') {
-
+                gameType = 5
             }
 
             let message = ''

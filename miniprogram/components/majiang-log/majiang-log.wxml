@@ -20,7 +20,7 @@
                             </block>
                         </block>
                         <block wx:else>
-                            <block wx:if="{{item.type === '自摸'}}">
+                            <block wx:if="{{item.type === '自摸' || item.type === '相公'}}">
                                 <text class="win-type2">{{item.type}}</text>
                             </block>
                             <block wx:else>
